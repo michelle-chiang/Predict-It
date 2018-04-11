@@ -81,9 +81,9 @@ class Dashboard extends Component {
                             <Card
                                 statsIcon="fa fa-history"
                                 id="chartHours"
-                                title="Users Behavior"
-                                category="24 Hours performance"
-                                stats="Updated 3 minutes ago"
+                                title="Food purchases prediction"
+                                category="Weekly Prediction"
+                             
                                 content={
                                     <div className="ct-chart">
                                         <ChartistGraph
