@@ -13,8 +13,8 @@ class TableList extends Component {
                     <Row>
                         <Col md={12}>
                             <Card
-                                title="Striped Table with Hover"
-                                category="Here is a subtitle for this table"
+                                title="Predicted Necessary Ingredient Purchases"
+                                category="For the week of 4/16-4/22, we think you'll need to buy this much of each ingredient:"
                                 ctTableFullWidth ctTableResponsive
                                 content={
                                     <Table striped hover>
@@ -36,7 +36,7 @@ class TableList extends Component {
                                                         <tr key={key}>{
                                                             prop.map((prop,key)=> {
                                                                 return (
-                                                                    <td  key={key}>{prop}</td>
+                                                                    <td  key={key}>{prop} lb</td>
                                                                 );
                                                             })
                                                         }</tr>
@@ -53,8 +53,8 @@ class TableList extends Component {
                         <Col md={12}>
                             <Card
                                 plain
-                                title="Striped Table with Hover"
-                                category="Here is a subtitle for this table"
+                                title="Past Ingredient Purchases"
+                                category="Last week, you purchased this much of each ingredient:"
                                 ctTableFullWidth ctTableResponsive
                                 content={
                                     <Table hover>
@@ -76,7 +76,7 @@ class TableList extends Component {
                                                         <tr key={key}>{
                                                             prop.map((prop,key)=> {
                                                                 return (
-                                                                    <td  key={key}>{prop}</td>
+                                                                    <td  key={key}>{prop} lb</td>
                                                                 );
                                                             })
                                                         }</tr>
