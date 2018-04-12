@@ -270,6 +270,11 @@ const tdArray = [
 // // // // For dashboard's charts
 // //
 //
+
+// All information from test databases
+var testData = require('./testData.json');
+console.log(testData)
+
 // Data for Pie Chart
 var dataPie = {
     labels: ['40%','20%','40%'],
@@ -294,7 +299,7 @@ var dataSales = {
 
 var todaydate = new Date();
 var year = todaydate.getFullYear();
-console.log(year);
+// console.log(year);
 
 var optionsSales = {
   low: 0,
