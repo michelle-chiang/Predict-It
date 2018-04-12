@@ -13,9 +13,11 @@ import {
     legendPie,
     dataSales,
     optionsSales,
+    todaydate,
     responsiveSales,
     legendSales,
     dataBar,
+    year,
     optionsBar,
     responsiveBar,
     legendBar
@@ -44,8 +46,8 @@ class Dashboard extends Component {
                         <Col lg={3} sm={6}>
                             <StatsCard
                                 bigIcon={<i className="pe-7s-server text-warning"></i>}
-                                statsText="Capacity"
-                                statsValue="105GB"
+                                statsText="Today is..."
+                                statsValue={year}
                                 statsIcon={<i className="fa fa-refresh"></i>}
                                 statsIconText="Updated now"
                             />
