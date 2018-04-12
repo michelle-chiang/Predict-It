@@ -1,3 +1,8 @@
+Product Presciption: This product suggests how much food to purchase based on relevant predictors (time, day of week, weather, month, holiday, etc.) by automating the analytical and predictive processes of purchasing food. Through this produce, we hope to address the root problem: purchasing food. Instead of having managers look numbers up in an Excel spreadsheet and estimate how much food they should buy for the day or the week, our product would automatically calculate that for them, enabling managers to focus on more important tasks such as budgeting and managing profit margins. More importantly, because it would have thousands of data points of purchase history and food prepared, the algorithm would be more accurate than human estimation, and would greatly reduce the amount of extraneous food purchased and therefore wasted. 
+
+
+We used a template taken from 
+
 # [Light Bootstrap Dashboard React](http://lbd-react.creative-tim.com/)
 [![version][version-badge]][CHANGELOG] [![license][license-badge]][LICENSE]
 
