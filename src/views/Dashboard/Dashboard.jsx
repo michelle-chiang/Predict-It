@@ -17,7 +17,7 @@ import {
     responsiveSales,
     legendSales,
     dataBar,
-    year,
+    today,
     optionsBar,
     responsiveBar,
     legendBar
@@ -47,7 +47,7 @@ class Dashboard extends Component {
                             <StatsCard
                                 bigIcon={<i className="pe-7s-server text-warning"></i>}
                                 statsText="Today is..."
-                                statsValue={year}
+                                statsValue={today}
                                 statsIcon={<i className="fa fa-refresh"></i>}
                                 statsIconText="Updated now"
                             />

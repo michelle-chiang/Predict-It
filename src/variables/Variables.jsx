@@ -503,9 +503,26 @@ var dataSales = {
   ]
 };
 
-var todaydate = new Date();
-var year = todaydate.getFullYear();
-console.log(year);
+// var todaydate = new Date();
+// var day=todaydate.getDay();
+// var month=todaydate.getMonth();
+// var year = todaydate.getFullYear();
+
+// from https://stackoverflow.com/questions/12409299/how-to-get-current-formatted-date-dd-mm-yyyy-in-javascript-and-append-it-to-an-i
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0!
+
+var yyyy = today.getFullYear();
+var yy = yyyy.toString().substr(-2);
+if(dd<10){
+    dd='0'+dd;
+} 
+if(mm<10){
+    mm='0'+mm;
+} 
+var today = mm+'/'+dd+'/'+yy;
+
 
 var optionsSales = {
   low: 0,
@@ -571,5 +588,5 @@ module.exports = {
     style, // For notifications (App container and Notifications view)
     thArray, tdArray, // For tables (TableList view)
     iconsArray, // For icons (Icons view)
-    dataPie, legendPie, dataSales, optionsSales, responsiveSales, legendSales, dataBar, optionsBar, responsiveBar, legendBar // For charts (Dashboard view)
+    dataPie, legendPie, dataSales, optionsSales, responsiveSales, legendSales, dataBar, optionsBar, today,responsiveBar, legendBar // For charts (Dashboard view)
 };
