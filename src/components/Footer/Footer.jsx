@@ -30,9 +30,6 @@ class Footer extends Component {
                             </li>
                         </ul>
                     </nav>
-                    <p className="copyright pull-right">
-                        &copy; {(new Date()).getFullYear()} Predict It
-                    </p>
                 </Grid>
             </footer>
 		);

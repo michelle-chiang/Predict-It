@@ -45,7 +45,7 @@ class Dashboard extends Component {
                     <Row>
                         <Col lg={3} sm={6}>
                             <StatsCard
-                                bigIcon={<i className="pe-7s-server text-warning"></i>}
+                                bigIcon={<i className="pe-7s-date text-warning"></i>}
                                 statsText="Today is..."
                                 statsValue={today}
                                 statsIcon={<i className="fa fa-refresh"></i>}
@@ -64,7 +64,7 @@ class Dashboard extends Component {
                         <Col lg={3} sm={6}>
                             <StatsCard
                                 bigIcon={<i className="pe-7s-graph1 text-danger"></i>}
-                                statsText="Errors"
+                                statsText="Customers"
                                 statsValue="23"
                                 statsIcon={<i className="fa fa-clock-o"></i>}
                                 statsIconText="In the last hour"
@@ -151,7 +151,6 @@ class Dashboard extends Component {
                             />
                         </Col>
                     </Row>
-                    <Button bsStyle="default" block onClick={() => this.props.handleClick('tl')}>Top Left</Button>
                     
                 </Grid>
             </div>
