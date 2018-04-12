@@ -9,8 +9,8 @@ import Upgrade from 'views/Upgrade/Upgrade';
 
 const appRoutes = [
     { path: "/dashboard", name: "Dashboard", icon: "pe-7s-graph", component: Dashboard },
-    { path: "/user", name: "User Profile", icon: "pe-7s-user", component: UserProfile },
-    { path: "/table", name: "Table List", icon: "pe-7s-menu", component: TableList },
+    { path: "/user", name: "Restaurant Profile", icon: "pe-7s-user", component: UserProfile },
+    { path: "/table", name: "Table Data", icon: "pe-7s-menu", component: TableList },
     { path: "/tasks", name: "Tasks", icon: "pe-7s-note2", component: Notifications },
 
     // { path: "/typography", name: "Typography", icon: "pe-7s-news-paper", component: Typography },
