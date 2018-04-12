@@ -149,7 +149,6 @@ class Dashboard extends Component {
                             />
                         </Col>
                     </Row>
-                    <Button bsStyle="default" block onClick={() => this.props.handleClick('tl')}>Top Left</Button>
                     
                 </Grid>
             </div>
