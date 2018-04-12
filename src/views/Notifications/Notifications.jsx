@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Alert } from 'react-bootstrap';
+import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
+import Button from 'elements/CustomButton/CustomButton.jsx';
 
 import {Card} from 'components/Card/Card.jsx';
-import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
 import {Tasks} from 'components/Tasks/Tasks.jsx';
-import Button from 'elements/CustomButton/CustomButton.jsx';
 
 class Notifications extends Component {
     render() {
@@ -25,8 +25,6 @@ class Notifications extends Component {
         );
     }
 }
-
-export default Notifications;
 
 // class Notifications extends Component {
 //     render() {
@@ -121,3 +119,5 @@ export default Notifications;
 //         );
 //     }
 // }
+
+export default Notifications;

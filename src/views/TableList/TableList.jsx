@@ -35,9 +35,15 @@ class TableList extends Component {
                                                     return (
                                                         <tr key={key}>{
                                                             prop.map((prop,key)=> {
-                                                                return (
-                                                                    <td  key={key}>{prop} lb</td>
-                                                                );
+                                                                if (typeof prop === "string") {
+                                                                    return (
+                                                                        <td  key={key}>{prop}</td>
+                                                                    );
+                                                                } else {
+                                                                    return (
+                                                                        <td  key={key}>{prop} lb</td>
+                                                                    );
+                                                                }
                                                             })
                                                         }</tr>
                                                     )

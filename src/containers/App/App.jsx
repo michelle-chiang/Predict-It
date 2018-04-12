@@ -103,7 +103,7 @@ class App extends Component {
                             <Switch>
                                 {
                                     appRoutes.map((prop,key) => {
-                                        if(prop.name === "Notifications")
+                                        if(prop.name === "Dashboard")
                                             return (
                                                 <Route
                                                     path={prop.path}

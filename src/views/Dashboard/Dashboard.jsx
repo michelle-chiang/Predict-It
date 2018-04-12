@@ -2,18 +2,22 @@ import React, { Component } from 'react';
 import ChartistGraph from 'react-chartist';
 import { Grid, Row, Col } from 'react-bootstrap';
 
-
 import {Card} from 'components/Card/Card.jsx';
 import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
-import {Tasks} from 'components/Tasks/Tasks.jsx';
+import Button from 'elements/CustomButton/CustomButton.jsx';
+
+// import {Tasks} from 'components/Tasks/Tasks.jsx';
+
 import {
     dataPie,
     legendPie,
     dataSales,
     optionsSales,
+    todaydate,
     responsiveSales,
     legendSales,
     dataBar,
+    today,
     optionsBar,
     responsiveBar,
     legendBar
@@ -41,9 +45,9 @@ class Dashboard extends Component {
                     <Row>
                         <Col lg={3} sm={6}>
                             <StatsCard
-                                bigIcon={<i className="pe-7s-server text-warning"></i>}
-                                statsText="Capacity"
-                                statsValue="105GB"
+                                bigIcon={<i className="pe-7s-date text-warning"></i>}
+                                statsText="Today is..."
+                                statsValue={today}
                                 statsIcon={<i className="fa fa-refresh"></i>}
                                 statsIconText="Updated now"
                             />
@@ -60,7 +64,7 @@ class Dashboard extends Component {
                         <Col lg={3} sm={6}>
                             <StatsCard
                                 bigIcon={<i className="pe-7s-graph1 text-danger"></i>}
-                                statsText="Errors"
+                                statsText="Customers"
                                 statsValue="23"
                                 statsIcon={<i className="fa fa-clock-o"></i>}
                                 statsIconText="In the last hour"
@@ -147,7 +151,7 @@ class Dashboard extends Component {
                             />
                         </Col>
                     </Row>
-
+                    
                 </Grid>
             </div>
         );
@@ -155,3 +159,5 @@ class Dashboard extends Component {
 }
 
 export default Dashboard;
+
+// <Button bsStyle="default" block onClick={() => this.props.handleClick('tl')}>Top Left</Button>

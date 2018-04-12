@@ -30,7 +30,7 @@ class UserProfile extends Component {
                                                  type : "text",
                                                  bsClass : "form-control",
                                                  placeholder : "Company",
-                                                 defaultValue : "Creative Code Inc.",
+                                                 defaultValue : "BAM Barbeque",
                                                  disabled : true
                                                 },
                                                 {
@@ -87,14 +87,14 @@ class UserProfile extends Component {
                                                     type : "text",
                                                     bsClass : "form-control",
                                                     placeholder : "City",
-                                                    defaultValue : "Mike"
+                                                    defaultValue : "Boston"
                                                 },
                                                 {
-                                                    label : "Country",
+                                                    label : "State/Province",
                                                     type : "text",
                                                     bsClass : "form-control",
-                                                    placeholder : "Country",
-                                                    defaultValue : "Andrew"
+                                                    placeholder : "ex: Arizona",
+                                                    defaultValue : "Massachusetts"
                                                 },
                                                 {
                                                     label : "Postal Code",
@@ -109,7 +109,11 @@ class UserProfile extends Component {
                                             <Col md={12}>
                                                 <FormGroup controlId="formControlsTextarea">
                                                     <ControlLabel>About Me</ControlLabel>
-                                                    <FormControl rows="5" componentClass="textarea" bsClass="form-control" placeholder="Here can be your description" defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."/>
+                                                    <FormControl rows="5" 
+                                                        componentClass="textarea" 
+                                                        bsClass="form-control" 
+                                                        placeholder="Here can be your description" 
+                                                        defaultValue="General Manager at BAM Barbeque for 9 years."/>
                                                 </FormGroup>
                                             </Col>
                                         </Row>
@@ -131,14 +135,14 @@ class UserProfile extends Component {
                                 bgImage="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400"
                                 avatar={avatar}
                                 name="Mike Andrew"
-                                userName="michael24"
+                                userName="BAM Barbeque"
                                 description={
                                     <span>
-                                        "Lamborghini Mercy
+                                        General Manager at BAM Barbeque for 9 years.
                                         <br />
-                                        Your chick she so thirsty
+                                        Experienced in personnel management, accounting,
                                         <br />
-                                        I'm in that two seat Lambo"
+                                        data analysis, and taste testing.
                                     </span>
                                 }
                                 socials={

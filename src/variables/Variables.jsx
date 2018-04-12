@@ -265,6 +265,96 @@ const tdArray = [
     ["Carrots" ,12 , 12  ,12  ,12 , 12,  10  ,10, 80]
 ];
 
+//
+// //
+// // // // For dashboard's charts
+// //
+//
+// Data for Pie Chart
+var dataPie = {
+    labels: ['40%','20%','40%'],
+    series: [40, 20, 40]
+};
+var legendPie = {
+    names: ["Open","Bounce","Unsubscribe"],
+    types: ["info","danger","warning"]
+};
+
+// Data for Line Chart
+var dataSales = {
+  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+  series: [
+     [151,	151,	151,	151,	151, 121, 121],
+    [80,	0,	80,	0,	75,	0,	60],
+    [60,	60,	60,	60,	60,	48,	48],
+    [12,	12,	12,	12,	12,	10,	10],
+    [155,	5,	5,	5,	5,	5,	4]
+  ]
+};
+
+var todaydate = new Date();
+var year = todaydate.getFullYear();
+console.log(year);
+
+var optionsSales = {
+  low: 0,
+  high: 160,
+  showArea: false,
+  height: "245px",
+  axisX: {
+    showGrid: false,
+  },
+  lineSmooth: true,
+  showLine: true,
+  showPoint: true,
+  fullWidth: true,
+  chartPadding: {
+    right: 50
+  }
+};
+var responsiveSales = [
+  ['screen and (max-width: 640px)', {
+    axisX: {
+      labelInterpolationFnc: function (value) {
+        return value[0];
+      }
+    }
+  }]
+];
+var legendSales = {
+    names: ["Vegetables","Fruits","Proteins","Beverages","Other"],
+    types: ["info","danger","warning"]
+};
+
+// Data for Bar Chart
+var dataBar = {
+  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  series: [
+    [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
+    [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695]
+  ]
+};
+var optionsBar = {
+    seriesBarDistance: 10,
+    axisX: {
+        showGrid: false
+    },
+    height: "245px"
+};
+var responsiveBar = [
+  ['screen and (max-width: 640px)', {
+    seriesBarDistance: 5,
+    axisX: {
+      labelInterpolationFnc: function (value) {
+        return value[0];
+      }
+    }
+  }]
+];
+var legendBar = {
+    names: ["Tesla Model S","BMW 5 Series"],
+    types: ["info","danger"]
+};
 
 //
 // //
@@ -493,16 +583,40 @@ var legendPie = {
 
 // Data for Line Chart
 var dataSales = {
-  labels: ['9:00AM', '12:00AM', '3:00PM', '6:00PM', '9:00PM', '12:00PM', '3:00AM', '6:00AM'],
+  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
   series: [
-     [287, 385, 490, 492, 554, 586, 698, 695],
-    [67, 152, 143, 240, 287, 335, 435, 437],
-    [23, 113, 67, 108, 190, 239, 307, 308]
+     [151,	151,	151,	151,	151, 121, 121],
+    [80,	0,	80,	0,	75,	0,	60],
+    [60,	60,	60,	60,	60,	48,	48],
+    [12,	12,	12,	12,	12,	10,	10],
+    [155,	5,	5,	5,	5,	5,	4]
   ]
 };
+
+// var todaydate = new Date();
+// var day=todaydate.getDay();
+// var month=todaydate.getMonth();
+// var year = todaydate.getFullYear();
+
+// from https://stackoverflow.com/questions/12409299/how-to-get-current-formatted-date-dd-mm-yyyy-in-javascript-and-append-it-to-an-i
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0!
+
+var yyyy = today.getFullYear();
+var yy = yyyy.toString().substr(-2);
+if(dd<10){
+    dd='0'+dd;
+} 
+if(mm<10){
+    mm='0'+mm;
+} 
+var today = mm+'/'+dd+'/'+yy;
+
+
 var optionsSales = {
   low: 0,
-  high: 800,
+  high: 160,
   showArea: false,
   height: "245px",
   axisX: {
@@ -526,7 +640,7 @@ var responsiveSales = [
   }]
 ];
 var legendSales = {
-    names: ["Open","Click","Click Second Time"],
+    names: ["Vegetables","Fruits","Proteins","Beverages","Other"],
     types: ["info","danger","warning"]
 };
 
@@ -564,5 +678,5 @@ module.exports = {
     style, // For notifications (App container and Notifications view)
     thArray, tdArray, // For tables (TableList view)
     iconsArray, // For icons (Icons view)
-    dataPie, legendPie, dataSales, optionsSales, responsiveSales, legendSales, dataBar, optionsBar, responsiveBar, legendBar // For charts (Dashboard view)
+    dataPie, legendPie, dataSales, optionsSales, responsiveSales, legendSales, dataBar, optionsBar, today,responsiveBar, legendBar // For charts (Dashboard view)
 };
