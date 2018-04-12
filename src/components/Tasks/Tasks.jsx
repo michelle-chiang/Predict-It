@@ -53,6 +53,7 @@ export class Tasks extends Component{
                                 bsSize="xs"
                             >
                                 <i className="fa fa-times"></i>
+
                             </Button>
                         </OverlayTrigger>
 

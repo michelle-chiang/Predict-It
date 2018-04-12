@@ -108,12 +108,12 @@ class Dashboard extends Component {
                         <Col md={4}>
                             <Card
                                 statsIcon="fa fa-clock-o"
-                                title="Email Statistics"
-                                category="Last Campaign Performance"
-                                stats="Campaign sent 2 days ago"
+                                title="Chickpea purchase prediction"
+                                category="Your most important ingredient!"
+                                stats=""
                                 content={
                                     <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-                                        <ChartistGraph data={dataPie} type="Pie"/>
+                                        <ChartistGraph data={dataPie} type="Line"/>
                                     </div>
                                 }
                                 legend={
@@ -129,9 +129,9 @@ class Dashboard extends Component {
                         <Col md={6}>
                             <Card
                                 id="chartActivity"
-                                title="2014 Sales"
-                                category="All products including Taxes"
-                                stats="Data information certified"
+                                title="2017 Sales"
+                                category="Sales per month"
+                                stats="in thousands of dollars"
                                 statsIcon="fa fa-check"
                                 content={
                                     <div className="ct-chart">
