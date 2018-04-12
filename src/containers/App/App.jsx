@@ -103,7 +103,9 @@ class App extends Component {
                             <Switch>
                                 {
                                     appRoutes.map((prop,key) => {
-                                        if(prop.name === "Dashboard")
+                                        // Adding click functionality to buttons - keeping
+                                        // template in case we add custom graphs on dashboard
+                                        if(prop.name === "Tasks") {
                                             return (
                                                 <Route
                                                     path={prop.path}
@@ -115,6 +117,8 @@ class App extends Component {
                                                        />}
                                                 />
                                             );
+                                        }
+
                                         if(prop.redirect)
                                             return (
                                                 <Redirect from={prop.path} to={prop.to} key={key}/>

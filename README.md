@@ -1,3 +1,8 @@
+Product Presciption: This product suggests how much food to purchase based on relevant predictors (time, day of week, weather, month, holiday, etc.) by automating the analytical and predictive processes of purchasing food. Through this produce, we hope to address the root problem: purchasing food. Instead of having managers look numbers up in an Excel spreadsheet and estimate how much food they should buy for the day or the week, our product would automatically calculate that for them, enabling managers to focus on more important tasks such as budgeting and managing profit margins. More importantly, because it would have thousands of data points of purchase history and food prepared, the algorithm would be more accurate than human estimation, and would greatly reduce the amount of extraneous food purchased and therefore wasted. 
+
+
+We used a template taken from http://lbd-react.creative-tim.com/#/dashboard
+
 # [Light Bootstrap Dashboard React](http://lbd-react.creative-tim.com/)
 [![version][version-badge]][CHANGELOG] [![license][license-badge]][LICENSE]
 
@@ -9,22 +14,6 @@ The product represents a big suite of front-end developer tools that can help yo
 
 It comes with 6 filter colors for the sidebar (`black`, `azure`,`green`,`orange`,`red`,`purple`) and an option to have a background image.
 
-## Links:
-
-+ [Live Preview](http://lbd-react.creative-tim.com/)
-
-## Quick Start:
-
-Quick start options:
-
-+ [Download from Github](https://github.com/creativetimofficial/light-bootstrap-dashboard-react/archive/master.zip).
-+ [Download from Creative Tim](https://www.creative-tim.com/product/light-bootstrap-dashboard-react).
-+ Clone the repo: `git clone https://github.com/creativetimofficial/light-bootstrap-dashboard-react.git`.
-
-Other Products:
-
-+ [Download HTML Version](https://www.creative-tim.com/product/light-bootstrap-dashboard).
-+ [Download Angular 2+ Version ](https://www.creative-tim.com/product/light-bootstrap-dashboard-angular2).
 
 ## Terminal Commands
 
@@ -36,102 +25,4 @@ Other Products:
 6. Navigate to `http://localhost:3000/`
 7. (optional) Run in terminal `npm i -g cross-env`
 
-### What's included
 
-Within the download you'll find the following directories and files:
-```
-Light Bootstrap Dashboard React
-├── Documentation
-│   ├── css
-│   ├── img
-│   └── tutorial-components.html
-├── README.md
-├── package.json
-├── public
-│   ├── assets
-│   │   └── img
-│   │       └── faces
-│   ├── favicon.ico
-│   ├── index.html
-│   └── manifest.json
-└── src
-    ├── assets
-    │   ├── css
-    │   ├── fonts
-    │   ├── img
-    │   │   └── faces
-    │   └── sass
-    │       ├── lbd
-    │       └── light-bootstrap-dashboard.scss
-    ├── components
-    │   ├── Card
-    │   │   └── Card.jsx
-    │   ├── Footer
-    │   │   └── Footer.jsx
-    │   ├── FormInputs
-    │   │   └── FormInputs.jsx
-    │   ├── Header
-    │   │   ├── Header.jsx
-    │   │   └── HeaderLinks.jsx
-    │   ├── Sidebar
-    │   │   └── Sidebar.jsx
-    │   ├── Tasks
-    │   │   └── Tasks.jsx
-    │   └── UserCard
-    │       └── UserCard.jsx
-    ├── containers
-    │   └── App
-    │       └── App.jsx
-    ├── elements
-    │   ├── CustomButton
-    │   │   └── CustomButton.jsx
-    │   ├── CustomCheckbox
-    │   │   └── CustomCheckbox.jsx
-    │   └── CustomRadio
-    │       └── CustomRadio.jsx
-    ├── index.js
-    ├── variables
-    │   └── Variables.jsx
-    └── views
-        ├── Dashboard
-        │   └── Dashboard.jsx
-        ├── Icons
-        │   └── Icons.jsx
-        ├── Maps
-        │   └── Maps.jsx
-        ├── Notifications
-        │   └── Notifications.jsx
-        ├── TableList
-        │   └── TableList.jsx
-        ├── Typography
-        │   └── Typography.jsx
-        └── UserProfile
-            └── UserProfile.jsx
-```
-## Useful Links
-
-More products from Creative Tim: <https://www.creative-tim.com/bootstrap-themes>
-
-Tutorials: <https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w>
-
-Freebies: <https://www.creative-tim.com/products>
-
-Affiliate Program (earn money): <https://www.creative-tim.com/affiliates/new>
-
-Social Media:
-
-Twitter: <https://twitter.com/CreativeTim>
-
-Facebook: <https://www.facebook.com/CreativeTim>
-
-Dribbble: <https://dribbble.com/creativetim>
-
-Google+: <https://plus.google.com/+CreativetimPage>
-
-Instagram: <https://instagram.com/creativetimofficial>
-
-[CHANGELOG]: ./CHANGELOG.md
-
-[LICENSE]: ./LICENSE.md
-[version-badge]: https://img.shields.io/badge/version-1.1.0-blue.svg
-[license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
