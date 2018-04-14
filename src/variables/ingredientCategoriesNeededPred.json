@@ -1,0 +1,9 @@
+// numbers represent lbs needed Mon-Sun
+
+{
+	"Vegetables":[151,151,151,151,151,121,121],
+	"Fruits": [80,0,80,0,75,0,60],
+	"Proteins":[60,60,60,60,60,48,48],
+	"Beverages": [12,12,12,12,12,10,10],
+	"Other": [155,5,5,5,5,5,4]
+}
