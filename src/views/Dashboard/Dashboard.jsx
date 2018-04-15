@@ -23,7 +23,7 @@ import {
 
 class Dashboard extends Component {
     // use state to remember what chart just got drawn
-    createLegend(json, id=""){
+    createLegend(json, id="") {
         var graphColor = ["a","b","c","d","e"];
         var legend = [];
         var num_items = json["names"].length;
@@ -37,9 +37,13 @@ class Dashboard extends Component {
                 parent.setAttribute("id","chart-" + dataSeries.name)
                 new Chartist.Line("#chart-" + dataSeries.name, {
                     labels: dataSeries.labels,
-                    series: dataSeries.series
+                    series: dataSeries.series,
+                    options: optionsSales
                 })
-                // TODO: add footer / legend
+                // // TODO: add footer / legend
+                // <div className="legend">
+                //     {this.createLegend(legendSales, "chartHours")}
+                // </div>
             }  
         };
 
@@ -109,8 +113,8 @@ class Dashboard extends Component {
                     <Row>
                         <Col md={12}>
                             <Card
-                                // statsIcon="fa fa-history"
-                                // id="chartHours"
+                                statsIcon="fa fa-history"
+                                id="chartHours"
                                 title="Food purchases prediction"
                                 category="Weekly Prediction"
                                 content={

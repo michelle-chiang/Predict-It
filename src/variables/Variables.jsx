@@ -264,6 +264,7 @@ const tdArray = [
 var catPred = require('./ingredientCategoriesNeededPred.json');
 var ingPred = require('./ingredientsNeededPred.json');
 var itemsSold = require('./menuItemsSoldPast.json');
+// console.log(catPred);
 
 // from https://stackoverflow.com/questions/12409299/how-to-get-current-formatted-date-dd-mm-yyyy-in-javascript-and-append-it-to-an-i
 var today = new Date();
@@ -275,31 +276,54 @@ if(dd<10){
 } 
 today = mm+'/'+dd+'/'+yy;
 
+var daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+var monthsOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+// placeholders for user inputs
+var today_date = new Date();
+var startDate = new Date(today_date.setDate(today_date.getDate()));
+var endDate = new Date(today_date.setDate(today_date.getDate()+6));
+
 // Data for Line Chart
 var dataSales = {
-  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-  series: [
-    catPred["Vegetables"],
-    catPred["Fruits"],
-    catPred["Proteins"],
-    catPred["Beverages"],
-    catPred["Other"]
-  ]
+  labels: daysOfWeek,
+  series: []
 };
+var categoryNames = ["Vegetables","Fruits","Proteins","Beverages","Other"];
+for (var i = 0; i < categoryNames.length; i++) {
+    dataSales["series"].push([]) // initialize containers for each category
+}
+for (var d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
+    for (i = 0; i < categoryNames.length; i++) {
+        dataSales["series"][i].push(catPred[d.toISOString().split('T')[0]][categoryNames[i]]) 
+    }
+}
+// console.log(dataSales)
 var legendSales = {
-    names: ["Vegetables","Fruits","Proteins","Beverages","Other"],
+    names: categoryNames,
 };
+
 var vegetablesNeeded = {
-  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-  series: Object.values(ingPred["Vegetables"]),
+  labels: daysOfWeek,
+  series: [],
   name: "vegetablesNeeded"
 };
+var vegetableNames = Object.keys(ingPred[d.toISOString().split('T')[0]]["Vegetables"])
+// console.log("vegetableNames:", vegetableNames)
+for (i = 0; i < vegetableNames.length; i++) {
+    vegetablesNeeded["series"].push([]) // initialize containers for each category
+}
+for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
+    for (i = 0; i < vegetableNames.length; i++) {
+        vegetablesNeeded["series"][i].push(ingPred[d.toISOString().split('T')[0]]["Vegetables"][vegetableNames[i]]) 
+    }
+}
 var vegetablesNeededLegend = {
-    names: Object.keys(ingPred["Vegetables"]),
+    names: vegetableNames
 };
+
 var optionsSales = {
   low: 0,
-  high: 160,
   showArea: false,
   height: "245px",
   axisX: {
@@ -325,7 +349,7 @@ var responsiveSales = [
 
 // Data for Bar Chart
 var dataBar = {
-  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  labels: monthsOfYear,
   series: [
     [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
   ]
