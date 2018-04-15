@@ -22,23 +22,24 @@ import {
 } from 'variables/Variables.jsx';
 
 class Dashboard extends Component {
+    // use state to remember what chart just got drawn
     createLegend(json, id=""){
-        console.log("id:", id)
         var graphColor = ["a","b","c","d","e"];
         var legend = [];
         var num_items = json["names"].length;
 
-        function changeChartData() {
+        function changeChartData(dataSeries) {
             var chart = document.getElementById(id);
             if (chart) {
                 var parent = chart.parentNode;
                 parent.removeChild(chart);
 
-                parent.setAttribute("id","chart-" + "vegetablesNeeded")
-                new Chartist.Line("#chart-vegetablesNeeded", {
-                    labels: vegetablesNeeded.labels,
-                    series: vegetablesNeeded.series
+                parent.setAttribute("id","chart-" + dataSeries.name)
+                new Chartist.Line("#chart-" + dataSeries.name, {
+                    labels: dataSeries.labels,
+                    series: dataSeries.series
                 })
+                // TODO: add footer / legend
             }  
         };
 
@@ -46,7 +47,7 @@ class Dashboard extends Component {
             var type="fa fa-circle legend-"+graphColor[i];
             if (id) {
                legend.push(
-                    <button key={i} onClick={changeChartData}>
+                    <button key={i} onClick={() => changeChartData(vegetablesNeeded)}>
                         <i className={type} ></i>
                         <span>{json["names"][i]}</span>
                     </button>

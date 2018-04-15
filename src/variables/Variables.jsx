@@ -291,7 +291,8 @@ var legendSales = {
 };
 var vegetablesNeeded = {
   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-  series: Object.values(ingPred["Vegetables"])
+  series: Object.values(ingPred["Vegetables"]),
+  name: "vegetablesNeeded"
 };
 var vegetablesNeededLegend = {
     names: Object.keys(ingPred["Vegetables"]),
