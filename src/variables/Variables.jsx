@@ -1,5 +1,3 @@
-// import legend from 'chartist-plugin-legend';
-
 //
 // //
 // // // For notifications
@@ -308,12 +306,6 @@ var optionsSales = {
   chartPadding: {
     right: 50
   },
-  // plugins: [
-  //   legend({
-  //       legendNames: ["Vegetables","Fruits","Proteins","Beverages","Other"],
-  //       classNames: ["primary", "info", "success", "danger","warning"]
-  //   })
-  // ]
 };
 var responsiveSales = [
   ['screen and (max-width: 640px)', {

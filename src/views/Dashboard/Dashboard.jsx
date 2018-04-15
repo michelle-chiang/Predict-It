@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ChartistGraph from 'react-chartist';
-// import legend from 'chartist-plugin-legend';
 import { Grid, Row, Col } from 'react-bootstrap';
 
 import {Card} from 'components/Card/Card.jsx';
