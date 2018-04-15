@@ -8,7 +8,7 @@ def daterange( start_date, end_date ):
     for n in range( ( end_date - start_date ).days + 1 ):
         yield start_date + datetime.timedelta( n )
 
-today = datetime.datetime.today()
+today = datetime.date.today()
 start_date = today.replace(month = today.month - 1)
 end_date = today.replace(month = today.month + 1)
 # start_date = today.replace(day = today.day - 1)
