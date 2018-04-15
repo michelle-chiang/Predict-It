@@ -31,11 +31,11 @@ class Dashboard extends Component {
             legend.push(
                 <a href="#" className="legend" key={i + num_items}>{json["names"][i]}</a>
             );
-            // legend.push(" ");
+            legend.push(" ");
             // legend.push(
             //     json["names"][i]
             // );
-        }
+        } 
         return legend;
     }
     render() {
@@ -83,7 +83,7 @@ class Dashboard extends Component {
                     <Row>
                         <Col md={12}>
                             <Card
-                                statsIcon="fa fa-history"
+                                // statsIcon="fa fa-history"
                                 id="chartHours"
                                 title="Food purchases prediction"
                                 category="Weekly Prediction"
@@ -113,8 +113,8 @@ class Dashboard extends Component {
                                 id="chartActivity"
                                 title="2017 Sales"
                                 category="Sales per month"
-                                stats="in thousands of dollars"
-                                statsIcon="fa fa-check"
+                                // stats="in thousands of dollars"
+                                // statsIcon="fa fa-check"
                                 content={
                                     <div className="ct-chart">
                                         <ChartistGraph

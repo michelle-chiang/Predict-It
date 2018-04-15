@@ -122,36 +122,6 @@ h1 .subtitle {
 .text-danger, .text-danger:hover {
   color: #FF4A55 !important; }
 
-.legend-a, .legend-a:hover {
-  color: #1DC7EA !important; }
-
-.legend-b, .legend-b:hover {
-  color: #FB404B !important; }
-
-.legend-c, .legend-c:hover {
-  color: #FFA534 !important; }
-
-.legend-d, .legend-d:hover {
-  color: #9368E9 !important; }
-
-.legend-e, .legend-e:hover {
-  color: #87CB16 !important; }
-
-.legend-f, .legend-f:hover {
-  color: #1b8dff !important; }
-
-.legend-g, .legend-g:hover {
-  color: #5e5e5e !important; }
-
-.legend-h, .legend-h:hover {
-  color: #dd4b39 !important; }
-
-.legend-i, .legend-i:hover {
-  color: #35465c !important; }
-
-.legend-j, .legend-j:hover {
-  color: #e52d27 !important; }
-
 /*     General overwrite     */
 body,
 .wrapper {
@@ -3032,3 +3002,36 @@ body > .navbar-collapse[data-color="purple"]:after {
     overflow-y: hidden;
     -ms-overflow-style: -ms-autohiding-scrollbar;
     -webkit-overflow-scrolling: touch; } }
+
+.legend-a, .legend-a:hover {
+  color: #1DC7EA !important; }
+
+.legend-b, .legend-b:hover {
+  color: #FB404B !important; }
+
+.legend-c, .legend-c:hover {
+  color: #FFA534 !important; }
+
+.legend-d, .legend-d:hover {
+  color: #9368E9 !important; }
+
+.legend-e, .legend-e:hover {
+  color: #87CB16 !important; }
+
+.legend-f, .legend-f:hover {
+  color: #1b8dff !important; }
+
+.legend-g, .legend-g:hover {
+  color: #5e5e5e !important; }
+
+.legend-h, .legend-h:hover {
+  color: #dd4b39 !important; }
+
+.legend-i, .legend-i:hover {
+  color: #35465c !important; }
+
+.legend-j, .legend-j:hover {
+  color: #e52d27 !important; }
+
+a.legend {
+  color: black; }

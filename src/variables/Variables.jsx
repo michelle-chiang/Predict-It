@@ -342,7 +342,7 @@ var responsiveBar = [
   }]
 ];
 var legendBar = {
-    names: ["Sales (in thousands of dollars"],
+    names: ["Sales (in thousands of dollars)"],
     types: ["info","danger"]
 };
 
