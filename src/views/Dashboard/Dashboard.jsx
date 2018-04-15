@@ -31,7 +31,9 @@ class Dashboard extends Component {
             var chart = document.getElementById("chartHours");
             var parent = chart.parentNode;
             parent.removeChild(chart);
-            new Chartist.Line(parent, {
+
+            parent.setAttribute("id","chart-" + "vegetablesNeeded")
+            new Chartist.Line("#chart-vegetablesNeeded", {
                 labels: vegetablesNeeded.labels,
                 series: vegetablesNeeded.series
             })
