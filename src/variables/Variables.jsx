@@ -264,7 +264,6 @@ const tdArray = [
 var catPred = require('./ingredientCategoriesNeededPred.json');
 var ingPred = require('./ingredientsNeededPred.json');
 var itemsSold = require('./menuItemsSoldPast.json');
-console.log(catPred);
 
 // from https://stackoverflow.com/questions/12409299/how-to-get-current-formatted-date-dd-mm-yyyy-in-javascript-and-append-it-to-an-i
 var today = new Date();
@@ -289,7 +288,13 @@ var dataSales = {
 };
 var legendSales = {
     names: ["Vegetables","Fruits","Proteins","Beverages","Other"],
-    types: ["primary", "info", "success", "danger","warning"]
+};
+var vegetablesNeeded = {
+  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+  series: Object.values(ingPred["Vegetables"])
+};
+var vegetablesNeededLegend = {
+    names: Object.keys(ingPred["Vegetables"]),
 };
 var optionsSales = {
   low: 0,
@@ -561,5 +566,6 @@ export {
     thArray, tdArray, // For tables (TableList view)
     iconsArray, // For icons (Icons view)
     dataSales, optionsSales, responsiveSales, legendSales, 
+    vegetablesNeeded,
     dataBar, optionsBar, today, responsiveBar, legendBar // For charts (Dashboard view)
 };

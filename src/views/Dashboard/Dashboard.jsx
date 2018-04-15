@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ChartistGraph from 'react-chartist';
+import Chartist from 'chartist';
 import { Grid, Row, Col } from 'react-bootstrap';
+// import $ from 'jquery';
 
 import {Card} from 'components/Card/Card.jsx';
 import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
@@ -15,7 +17,8 @@ import {
     today,
     optionsBar,
     responsiveBar,
-    legendBar
+    legendBar,
+    vegetablesNeeded
 } from 'variables/Variables.jsx';
 
 class Dashboard extends Component {
@@ -23,15 +26,29 @@ class Dashboard extends Component {
         var graphColor = ["a","b","c","d","e"];
         var legend = [];
         var num_items = json["names"].length;
+
+        function changeChartData() {
+            var chart = document.getElementById("chartHours");
+            var parent = chart.parentNode;
+            parent.removeChild(chart);
+            new Chartist.Line(parent, {
+                labels: vegetablesNeeded.labels,
+                series: vegetablesNeeded.series
+            })
+        }
+
         for(var i = 0; i < num_items; i++){
             var type="fa fa-circle legend-"+graphColor[i];
             legend.push(
-                <a href="#" className={type} key={i}></a>
+                <button key={i} onClick={changeChartData}>
+                    <i className={type} ></i>
+                    <span>{json["names"][i]}</span>
+                </button>
             );
-            legend.push(
-                <a href="#" className="legend" key={i + num_items}>{json["names"][i]}</a>
-            );
-            legend.push(" ");
+            // legend.push(
+            //     <a href="#" className="legend" key={i + num_items}>{json["names"][i]}</a>
+            // );
+            // legend.push(" ");
             // legend.push(
             //     json["names"][i]
             // );
@@ -84,12 +101,11 @@ class Dashboard extends Component {
                         <Col md={12}>
                             <Card
                                 // statsIcon="fa fa-history"
-                                id="chartHours"
+                                // id="chartHours"
                                 title="Food purchases prediction"
                                 category="Weekly Prediction"
-                             
                                 content={
-                                    <div className="ct-chart">
+                                    <div className="ct-chart" id="chartHours">
                                         <ChartistGraph
                                             data={dataSales}
                                             type="Line"
@@ -97,7 +113,7 @@ class Dashboard extends Component {
                                             responsiveOptions={responsiveSales}
                                         />
                                     </div>
-                                    }
+                                }
                                 legend={
                                     <div className="legend">
                                         {this.createLegend(legendSales)}
