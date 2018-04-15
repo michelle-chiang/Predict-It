@@ -264,6 +264,7 @@ const tdArray = [
 var catPred = require('./ingredientCategoriesNeededPred.json');
 var ingPred = require('./ingredientsNeededPred.json');
 var itemsSold = require('./menuItemsSoldPast.json');
+console.log(catPred);
 
 // from https://stackoverflow.com/questions/12409299/how-to-get-current-formatted-date-dd-mm-yyyy-in-javascript-and-append-it-to-an-i
 var today = new Date();
