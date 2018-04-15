@@ -22,15 +22,19 @@ class Dashboard extends Component {
     createLegend(json){
         var graphColor = ["a","b","c","d","e"];
         var legend = [];
-        for(var i = 0; i < json["names"].length; i++){
+        var num_items = json["names"].length;
+        for(var i = 0; i < num_items; i++){
             var type="fa fa-circle legend-"+graphColor[i];
             legend.push(
-                <i className={type} key={i}></i>
+                <a href="#" className={type} key={i}></a>
             );
-            legend.push(" ");
             legend.push(
-                json["names"][i]
+                <a href="#" className="legend" key={i + num_items}>{json["names"][i]}</a>
             );
+            // legend.push(" ");
+            // legend.push(
+            //     json["names"][i]
+            // );
         }
         return legend;
     }
