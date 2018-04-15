@@ -12,12 +12,14 @@ const appRoutes = [
     { path: "/user", name: "Restaurant Profile", icon: "pe-7s-user", component: UserProfile },
     { path: "/table", name: "Table Data", icon: "pe-7s-menu", component: TableList },
     { path: "/tasks", name: "Tasks", icon: "pe-7s-note2", component: Notifications },
-
-    // { path: "/typography", name: "Typography", icon: "pe-7s-news-paper", component: Typography },
-    // { path: "/icons", name: "Icons", icon: "pe-7s-science", component: Icons },
-    // { path: "/maps", name: "Maps", icon: "pe-7s-map-marker", component: Maps },
-    // { upgrade: true, path: "/upgrade", name: "Upgrade to PRO", icon: "pe-7s-rocket", component: Upgrade },
-    { redirect: true, path:"/", to:"/dashboard", name: "Dashboard" }
+	{ redirect: true, path:"/", to:"/dashboard", name: "Dashboard" }
 ];
 
 export default appRoutes;
+
+
+// { path: "/typography", name: "Typography", icon: "pe-7s-news-paper", component: Typography },
+// { path: "/icons", name: "Icons", icon: "pe-7s-science", component: Icons },
+// { path: "/maps", name: "Maps", icon: "pe-7s-map-marker", component: Maps },
+// { upgrade: true, path: "/upgrade", name: "Upgrade to PRO", icon: "pe-7s-rocket", component: Upgrade },
+

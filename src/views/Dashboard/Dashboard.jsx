@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
 import ChartistGraph from 'react-chartist';
+// import legend from 'chartist-plugin-legend';
 import { Grid, Row, Col } from 'react-bootstrap';
 
 import {Card} from 'components/Card/Card.jsx';
 import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
-import Button from 'elements/CustomButton/CustomButton.jsx';
-
-// import {Tasks} from 'components/Tasks/Tasks.jsx';
+// import Button from 'elements/CustomButton/CustomButton.jsx';
 
 import {
-    dataPie,
-    legendPie,
     dataSales,
     optionsSales,
-    todaydate,
     responsiveSales,
     legendSales,
     dataBar,
@@ -25,9 +21,10 @@ import {
 
 class Dashboard extends Component {
     createLegend(json){
+        var graphColor = ["a","b","c","d","e"];
         var legend = [];
         for(var i = 0; i < json["names"].length; i++){
-            var type = "fa fa-circle text-"+json["types"][i];
+            var type="fa fa-circle legend-"+graphColor[i];
             legend.push(
                 <i className={type} key={i}></i>
             );
@@ -81,7 +78,7 @@ class Dashboard extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col md={8}>
+                        <Col md={12}>
                             <Card
                                 statsIcon="fa fa-history"
                                 id="chartHours"
@@ -101,24 +98,6 @@ class Dashboard extends Component {
                                 legend={
                                     <div className="legend">
                                         {this.createLegend(legendSales)}
-                                    </div>
-                                }
-                            />
-                        </Col>
-                        <Col md={4}>
-                            <Card
-                                statsIcon="fa fa-clock-o"
-                                title="Chickpea purchase prediction"
-                                category="Your most important ingredient!"
-                                stats=""
-                                content={
-                                    <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-                                        <ChartistGraph data={dataPie} type="Line"/>
-                                    </div>
-                                }
-                                legend={
-                                    <div className="legend">
-                                        {this.createLegend(legendPie)}
                                     </div>
                                 }
                             />

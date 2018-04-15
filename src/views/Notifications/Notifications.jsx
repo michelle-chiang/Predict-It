@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, Alert } from 'react-bootstrap';
-import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
-import Button from 'elements/CustomButton/CustomButton.jsx';
+// import { Grid, Row, Col, Alert } from 'react-bootstrap';
+// import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
+// import Button from 'elements/CustomButton/CustomButton.jsx';
 
 import {Card} from 'components/Card/Card.jsx';
 import {Tasks} from 'components/Tasks/Tasks.jsx';
