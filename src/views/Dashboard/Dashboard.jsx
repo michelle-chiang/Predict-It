@@ -22,7 +22,36 @@ import {
 } from 'variables/Variables.jsx';
 
 class Dashboard extends Component {
-    // use state to remember what chart just got drawn
+    constructor(props) {
+        super(props);
+        this.state = {
+            startDate: '',
+            endDate: ''
+        };
+        this.handleStartDateChange = this.handleStartDateChange.bind(this);
+        this.handleEndDateChange = this.handleEndDateChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+
+    }
+
+    handleStartDateChange(event) {
+        // TODO: add red warning if date not formatted correctly
+        this.setState({startDate: event.target.value});
+    }
+
+    handleEndDateChange(event) {
+        // TODO: add red warning if date not formatted correctly
+        this.setState({endDate: event.target.value});
+    }
+
+    handleSubmit(event) {
+        // alert('A date was submitted: ' + this.state.startDate);
+        // TODO: update data object by using generate dataset function
+        console.log(event.target)
+        event.preventDefault();
+    }
+
+    // TODO: use state to remember what chart just got drawn
     createLegend(json, id="") {
         var graphColor = ["a","b","c","d","e"];
         var legend = [];
@@ -71,6 +100,13 @@ class Dashboard extends Component {
     render() {
         return (
             <div className="content">
+                <form onSubmit={this.handleSubmit}>
+                    <label> Date:
+                        <input type="text" placeholder="YYYY-MM-DD" value={this.state.startDate} onChange={this.handleStartDateChange}/>
+                        <input type="text" placeholder="YYYY-MM-DD" value={this.state.endDate} onChange={this.handleEndDateChange}/>
+                    </label>
+                    <input type="submit" value="Submit"/>
+                </form>
                 <Grid fluid>
                     <Row>
                         <Col lg={3} sm={6}>

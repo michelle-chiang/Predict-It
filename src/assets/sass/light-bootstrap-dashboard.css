@@ -3035,3 +3035,7 @@ body > .navbar-collapse[data-color="purple"]:after {
 
 a.legend {
   color: black; }
+
+[placeholder]:focus::-webkit-input-placeholder {
+  transition: opacity 1s 1s ease;
+  opacity: 0; }

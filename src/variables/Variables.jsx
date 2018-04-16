@@ -284,6 +284,8 @@ var today_date = new Date();
 var startDate = new Date(today_date.setDate(today_date.getDate()));
 var endDate = new Date(today_date.setDate(today_date.getDate()+6));
 
+// TODO: create function for generating data from input
+
 // Data for Line Chart
 var dataSales = {
   labels: daysOfWeek,
