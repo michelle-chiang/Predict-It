@@ -246,6 +246,13 @@ var style = {
 
 //
 // //
+// // // For icons
+// //
+//
+const iconsArray = require('./iconsArray.json');
+
+//
+// //
 // // // For tables
 // //
 //
@@ -261,68 +268,102 @@ const tdArray = [
 // // // // For dashboard's charts
 // //
 //
-var catPred = require('./ingredientCategoriesNeededPred.json');
-var ingPred = require('./ingredientsNeededPred.json');
-var itemsSold = require('./menuItemsSoldPast.json');
-// console.log(catPred);
-
-// from https://stackoverflow.com/questions/12409299/how-to-get-current-formatted-date-dd-mm-yyyy-in-javascript-and-append-it-to-an-i
+var dataSets = {
+    catPred: require('./ingredientCategoriesNeededPred.json'),
+    ingPred: require('./ingredientsNeededPred.json'),
+    itemsSold: require('./menuItemsSoldPast.json')
+}
 var today = new Date();
-var dd = today.getDate();
-var mm = today.getMonth()+1; //January is 0!
-var yy = today.getFullYear().toString().substr(-2);
-if(dd<10){
-    dd='0'+dd;
-} 
-today = mm+'/'+dd+'/'+yy;
+today = today.getMonth()+1 +'/'+today.getDate()+'/'+today.getFullYear().toString().substr(-2);;
 
+// labels
+// TODO: generate these dynamically in "generate Data Set"
 var daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 var monthsOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
+// generate data set pertaining to specified predictors
+function generateDataSet(startDate, endDate, database, labels, predictor="") {
+    var predictorNames, dateData, sampleDate;
+    var db = dataSets[database];
+    var d = new Date(startDate);
+    endDate = new Date(endDate);
+    var dataBody = {
+        labels: labels,
+        series: []
+    };
+    var legend = {
+        names: []
+    };
+
+    // catch dates without correct format
+    // TODO: can probs remove this if i prevent 
+    // handleStartDateChange(event) from firing until correct format
+    try {
+        sampleDate = d.toISOString();
+        sampleDate = endDate.toISOString();
+    } catch(error) {
+        console.error(error);
+        return;
+    }
+
+    // find legend items
+    if (predictor) {
+        dateData = db[sampleDate.split('T')[0]][predictor]
+    } else {
+        dateData = db[sampleDate.split('T')[0]]
+    }
+    predictorNames = Object.keys(dateData)
+    legend.names = predictorNames;
+
+    // initialize series containers
+    for (var i = 0; i < predictorNames.length; i++) {
+        dataBody["series"].push([]); // initialize containers for each category
+    }
+
+    // fill in series data
+    if (predictor) {
+        for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
+            for (i = 0; i < predictorNames.length; i++) {
+                dataBody["series"][i].push(db[d.toISOString().split('T')[0]][predictor][predictorNames[i]]) 
+            }
+        }
+    } else {
+        for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
+            for (i = 0; i < predictorNames.length; i++) {
+                dataBody["series"][i].push(db[d.toISOString().split('T')[0]][predictorNames[i]]) 
+            }
+        }
+    }
+    return [dataBody, legend];
+};
+
 // placeholders for user inputs
-var today_date = new Date();
-var startDate = new Date(today_date.setDate(today_date.getDate()));
-var endDate = new Date(today_date.setDate(today_date.getDate()+6));
+// var today_date = new Date();
+// var startDate = new Date(today_date.setDate(today_date.getDate()));
+// var endDate = new Date(today_date.setDate(today_date.getDate()+6));
+// var testData = generateDataSet(startDate, endDate, 'catPred', daysOfWeek);
+// var testData = generateDataSet(startDate, endDate, 'ingPred', daysOfWeek, 'Vegetables');
+// console.log("testData:", testData);
 
-// TODO: create function for generating data from input
 
-// Data for Line Chart
-var dataSales = {
-  labels: daysOfWeek,
-  series: []
-};
-var categoryNames = ["Vegetables","Fruits","Proteins","Beverages","Other"];
-for (var i = 0; i < categoryNames.length; i++) {
-    dataSales["series"].push([]) // initialize containers for each category
-}
-for (var d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
-    for (i = 0; i < categoryNames.length; i++) {
-        dataSales["series"][i].push(catPred[d.toISOString().split('T')[0]][categoryNames[i]]) 
-    }
-}
-// console.log(dataSales)
-var legendSales = {
-    names: categoryNames,
-};
-
-var vegetablesNeeded = {
-  labels: daysOfWeek,
-  series: [],
-  name: "vegetablesNeeded"
-};
-var vegetableNames = Object.keys(ingPred[d.toISOString().split('T')[0]]["Vegetables"])
-// console.log("vegetableNames:", vegetableNames)
-for (i = 0; i < vegetableNames.length; i++) {
-    vegetablesNeeded["series"].push([]) // initialize containers for each category
-}
-for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
-    for (i = 0; i < vegetableNames.length; i++) {
-        vegetablesNeeded["series"][i].push(ingPred[d.toISOString().split('T')[0]]["Vegetables"][vegetableNames[i]]) 
-    }
-}
-var vegetablesNeededLegend = {
-    names: vegetableNames
-};
+// var vegetablesNeeded = {
+//   labels: daysOfWeek,
+//   series: [],
+//   name: "vegetablesNeeded"
+// };
+// var vegetableNames = Object.keys(ingPred[d.toISOString().split('T')[0]]["Vegetables"])
+// // console.log("vegetableNames:", vegetableNames)
+// for (i = 0; i < vegetableNames.length; i++) {
+//     vegetablesNeeded["series"].push([]) // initialize containers for each category
+// }
+// for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
+//     for (i = 0; i < vegetableNames.length; i++) {
+//         vegetablesNeeded["series"][i].push(ingPred[d.toISOString().split('T')[0]]["Vegetables"][vegetableNames[i]]) 
+//     }
+// }
+// var vegetablesNeededLegend = {
+//     names: vegetableNames
+// };
 
 var optionsSales = {
   low: 0,
@@ -378,221 +419,18 @@ var legendBar = {
     types: ["info","danger"]
 };
 
-//
-// //
-// // // For icons
-// //
-//
-const iconsArray = [
-    "pe-7s-album",
-    "pe-7s-arc",
-    "pe-7s-back-2",
-    "pe-7s-bandaid",
-    "pe-7s-car",
-    "pe-7s-diamond",
-    "pe-7s-door-lock",
-    "pe-7s-eyedropper",
-    "pe-7s-female",
-    "pe-7s-gym",
-    "pe-7s-hammer",
-    "pe-7s-headphones",
-    "pe-7s-helm",
-    "pe-7s-hourglass",
-    "pe-7s-leaf",
-    "pe-7s-magic-wand",
-    "pe-7s-male",
-    "pe-7s-map-2",
-    "pe-7s-next-2",
-    "pe-7s-paint-bucket",
-    "pe-7s-pendrive",
-    "pe-7s-photo",
-    "pe-7s-piggy",
-    "pe-7s-plugin",
-    "pe-7s-refresh-2",
-    "pe-7s-rocket",
-    "pe-7s-settings",
-    "pe-7s-shield",
-    "pe-7s-smile",
-    "pe-7s-usb",
-    "pe-7s-vector",
-    "pe-7s-wine",
-    "pe-7s-cloud-upload",
-    "pe-7s-cash",
-    "pe-7s-close",
-    "pe-7s-bluetooth",
-    "pe-7s-cloud-download",
-    "pe-7s-way",
-    "pe-7s-close-circle",
-    "pe-7s-id",
-    "pe-7s-angle-up",
-    "pe-7s-wristwatch",
-    "pe-7s-angle-up-circle",
-    "pe-7s-world",
-    "pe-7s-angle-right",
-    "pe-7s-volume",
-    "pe-7s-angle-right-circle",
-    "pe-7s-users",
-    "pe-7s-angle-left",
-    "pe-7s-user-female",
-    "pe-7s-angle-left-circle",
-    "pe-7s-up-arrow",
-    "pe-7s-angle-down",
-    "pe-7s-switch",
-    "pe-7s-angle-down-circle",
-    "pe-7s-scissors",
-    "pe-7s-wallet",
-    "pe-7s-safe",
-    "pe-7s-volume2",
-    "pe-7s-volume1",
-    "pe-7s-voicemail",
-    "pe-7s-video",
-    "pe-7s-user",
-    "pe-7s-upload",
-    "pe-7s-unlock",
-    "pe-7s-umbrella",
-    "pe-7s-trash",
-    "pe-7s-tools",
-    "pe-7s-timer",
-    "pe-7s-ticket",
-    "pe-7s-target",
-    "pe-7s-sun",
-    "pe-7s-study",
-    "pe-7s-stopwatch",
-    "pe-7s-star",
-    "pe-7s-speaker",
-    "pe-7s-signal",
-    "pe-7s-shuffle",
-    "pe-7s-shopbag",
-    "pe-7s-share",
-    "pe-7s-server",
-    "pe-7s-search",
-    "pe-7s-film",
-    "pe-7s-science",
-    "pe-7s-disk",
-    "pe-7s-ribbon",
-    "pe-7s-repeat",
-    "pe-7s-refresh",
-    "pe-7s-add-user",
-    "pe-7s-refresh-cloud",
-    "pe-7s-paperclip",
-    "pe-7s-radio",
-    "pe-7s-note2",
-    "pe-7s-print",
-    "pe-7s-network",
-    "pe-7s-prev",
-    "pe-7s-mute",
-    "pe-7s-power",
-    "pe-7s-medal",
-    "pe-7s-portfolio",
-    "pe-7s-like2",
-    "pe-7s-plus",
-    "pe-7s-left-arrow",
-    "pe-7s-play",
-    "pe-7s-key",
-    "pe-7s-plane",
-    "pe-7s-joy",
-    "pe-7s-photo-gallery",
-    "pe-7s-pin",
-    "pe-7s-phone",
-    "pe-7s-plug",
-    "pe-7s-pen",
-    "pe-7s-right-arrow",
-    "pe-7s-paper-plane",
-    "pe-7s-delete-user",
-    "pe-7s-paint",
-    "pe-7s-bottom-arrow",
-    "pe-7s-notebook",
-    "pe-7s-note",
-    "pe-7s-next",
-    "pe-7s-news-paper",
-    "pe-7s-musiclist",
-    "pe-7s-music",
-    "pe-7s-mouse",
-    "pe-7s-more",
-    "pe-7s-moon",
-    "pe-7s-monitor",
-    "pe-7s-micro",
-    "pe-7s-menu",
-    "pe-7s-map",
-    "pe-7s-map-marker",
-    "pe-7s-mail",
-    "pe-7s-mail-open",
-    "pe-7s-mail-open-file",
-    "pe-7s-magnet",
-    "pe-7s-loop",
-    "pe-7s-look",
-    "pe-7s-lock",
-    "pe-7s-lintern",
-    "pe-7s-link",
-    "pe-7s-like",
-    "pe-7s-light",
-    "pe-7s-less",
-    "pe-7s-keypad",
-    "pe-7s-junk",
-    "pe-7s-info",
-    "pe-7s-home",
-    "pe-7s-help2",
-    "pe-7s-help1",
-    "pe-7s-graph3",
-    "pe-7s-graph2",
-    "pe-7s-graph1",
-    "pe-7s-graph",
-    "pe-7s-global",
-    "pe-7s-gleam",
-    "pe-7s-glasses",
-    "pe-7s-gift",
-    "pe-7s-folder",
-    "pe-7s-flag",
-    "pe-7s-filter",
-    "pe-7s-file",
-    "pe-7s-expand1",
-    "pe-7s-exapnd2",
-    "pe-7s-edit",
-    "pe-7s-drop",
-    "pe-7s-drawer",
-    "pe-7s-download",
-    "pe-7s-display2",
-    "pe-7s-display1",
-    "pe-7s-diskette",
-    "pe-7s-date",
-    "pe-7s-cup",
-    "pe-7s-culture",
-    "pe-7s-crop",
-    "pe-7s-credit",
-    "pe-7s-copy-file",
-    "pe-7s-config",
-    "pe-7s-compass",
-    "pe-7s-comment",
-    "pe-7s-coffee",
-    "pe-7s-cloud",
-    "pe-7s-clock",
-    "pe-7s-check",
-    "pe-7s-chat",
-    "pe-7s-cart",
-    "pe-7s-camera",
-    "pe-7s-call",
-    "pe-7s-calculator",
-    "pe-7s-browser",
-    "pe-7s-box2",
-    "pe-7s-box1",
-    "pe-7s-bookmarks",
-    "pe-7s-bicycle",
-    "pe-7s-bell",
-    "pe-7s-battery",
-    "pe-7s-ball",
-    "pe-7s-back",
-    "pe-7s-attention",
-    "pe-7s-anchor",
-    "pe-7s-albums",
-    "pe-7s-alarm",
-    "pe-7s-airplay"
-];
+
 
 export {
     style, // For notifications (App container and Notifications view)
     thArray, tdArray, // For tables (TableList view)
     iconsArray, // For icons (Icons view)
-    dataSales, optionsSales, responsiveSales, legendSales, 
-    vegetablesNeeded,
-    dataBar, optionsBar, today, responsiveBar, legendBar // For charts (Dashboard view)
+    today, // For stats card
+    daysOfWeek, monthsOfYear, // For graph labels
+    generateDataSet, // For generating specific data sets
+
+    // dataSales, legendSales,
+    optionsSales, responsiveSales, 
+    // vegetablesNeeded,
+    dataBar, optionsBar, responsiveBar, legendBar // For charts (Dashboard view)
 };

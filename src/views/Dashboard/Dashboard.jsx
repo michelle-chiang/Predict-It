@@ -9,24 +9,29 @@ import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
 // import Button from 'elements/CustomButton/CustomButton.jsx';
 
 import {
-    dataSales,
+    // dataSales,
     optionsSales,
     responsiveSales,
-    legendSales,
+    // legendSales,
     dataBar,
     today,
     optionsBar,
     responsiveBar,
     legendBar,
-    vegetablesNeeded
+    // vegetablesNeeded,
+
+    generateDataSet,
+    daysOfWeek, 
+    monthsOfYear
+
 } from 'variables/Variables.jsx';
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            startDate: '',
-            endDate: ''
+            startDate: '04/15/18',
+            endDate: '04/21/18'
         };
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.handleEndDateChange = this.handleEndDateChange.bind(this);
@@ -45,18 +50,13 @@ class Dashboard extends Component {
     }
 
     handleSubmit(event) {
-        // alert('A date was submitted: ' + this.state.startDate);
         // TODO: update data object by using generate dataset function
-        console.log(event.target)
+        console.log(this.state.startDate, this.state.endDate)
         event.preventDefault();
     }
 
     // TODO: use state to remember what chart just got drawn
     createLegend(json, id="") {
-        var graphColor = ["a","b","c","d","e"];
-        var legend = [];
-        var num_items = json["names"].length;
-
         function changeChartData(dataSeries) {
             var chart = document.getElementById(id);
             if (chart) {
@@ -76,16 +76,20 @@ class Dashboard extends Component {
             }  
         };
 
+        var graphColor = ["a","b","c","d","e"];
+        var legend = [];
+        var num_items = json["names"].length;
+
         for(var i = 0; i < num_items; i++){
             var type="fa fa-circle legend-"+graphColor[i];
-            if (id) {
-               legend.push(
-                    <button key={i} onClick={() => changeChartData(vegetablesNeeded)}>
-                        <i className={type} ></i>
-                        <span>{json["names"][i]}</span>
-                    </button>
-                ); 
-            } else {
+            // if (id) {
+            //    legend.push(
+            //         <button key={i} onClick={() => changeChartData(vegetablesNeeded)}>
+            //             <i className={type} ></i>
+            //             <span>{json["names"][i]}</span>
+            //         </button>
+            //     ); 
+            // } else {
                 legend.push(
                     <i className={type} key={i}></i>
                 );
@@ -94,17 +98,18 @@ class Dashboard extends Component {
                     json["names"][i]
                 ); 
             }
-        } 
+        // } 
         return legend;
     }
     render() {
         return (
             <div className="content">
                 <form onSubmit={this.handleSubmit}>
-                    <label> Date:
-                        <input type="text" placeholder="YYYY-MM-DD" value={this.state.startDate} onChange={this.handleStartDateChange}/>
-                        <input type="text" placeholder="YYYY-MM-DD" value={this.state.endDate} onChange={this.handleEndDateChange}/>
-                    </label>
+                    <label> Dates:&nbsp;
+                        <input type="text" placeholder="MM/DD/YY" value={this.state.startDate} onChange={this.handleStartDateChange}/>
+                        &nbsp;-&nbsp;
+                        <input type="text" placeholder="MM/DD/YY" value={this.state.endDate} onChange={this.handleEndDateChange}/>
+                    </label>&nbsp;
                     <input type="submit" value="Submit"/>
                 </form>
                 <Grid fluid>
@@ -149,14 +154,15 @@ class Dashboard extends Component {
                     <Row>
                         <Col md={12}>
                             <Card
-                                statsIcon="fa fa-history"
+                                // statsIcon="fa fa-history"
                                 id="chartHours"
-                                title="Food purchases prediction"
-                                category="Weekly Prediction"
+                                title={"Ingredients Needed: " + this.state.startDate + " - " + this.state.endDate}
+                                category="Past Data and Predicted Future Needs (lb)"
+                                // startDate, endDate, database, labels, predictor=""
                                 content={
                                     <div className="ct-chart" id="chartHours">
                                         <ChartistGraph
-                                            data={dataSales}
+                                            data={generateDataSet(this.state.startDate, this.state.endDate, 'catPred', daysOfWeek)[0]}
                                             type="Line"
                                             options={optionsSales}
                                             responsiveOptions={responsiveSales}
@@ -165,7 +171,7 @@ class Dashboard extends Component {
                                 }
                                 legend={
                                     <div className="legend">
-                                        {this.createLegend(legendSales, "chartHours")}
+                                        {this.createLegend(generateDataSet(this.state.startDate, this.state.endDate, 'catPred', daysOfWeek)[1])}
                                     </div>
                                 }
                             />
