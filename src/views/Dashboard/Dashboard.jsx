@@ -30,8 +30,8 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            startDate: '04/15/18',
-            endDate: '04/21/18'
+            startDate: '2018/04/15',
+            endDate: '2018/04/21'
         };
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.handleEndDateChange = this.handleEndDateChange.bind(this);
@@ -106,51 +106,13 @@ class Dashboard extends Component {
             <div className="content">
                 <form onSubmit={this.handleSubmit}>
                     <label> Dates:&nbsp;
-                        <input type="text" placeholder="MM/DD/YY" value={this.state.startDate} onChange={this.handleStartDateChange}/>
+                        <input type="text" placeholder="YYYY/MM/DD" value={this.state.startDate} onChange={this.handleStartDateChange}/>
                         &nbsp;-&nbsp;
-                        <input type="text" placeholder="MM/DD/YY" value={this.state.endDate} onChange={this.handleEndDateChange}/>
+                        <input type="text" placeholder="YYYY/MM/DD" value={this.state.endDate} onChange={this.handleEndDateChange}/>
                     </label>&nbsp;
                     <input type="submit" value="Submit"/>
                 </form>
                 <Grid fluid>
-                    <Row>
-                        <Col lg={3} sm={6}>
-                            <StatsCard
-                                bigIcon={<i className="pe-7s-date text-warning"></i>}
-                                statsText="Today is..."
-                                statsValue={today}
-                                statsIcon={<i className="fa fa-refresh"></i>}
-                                statsIconText="Updated now"
-                            />
-                        </Col>
-                        <Col lg={3} sm={6}>
-                            <StatsCard
-                                bigIcon={<i className="pe-7s-wallet text-success"></i>}
-                                statsText="Revenue"
-                                statsValue="$1,345"
-                                statsIcon={<i className="fa fa-calendar-o"></i>}
-                                statsIconText="Last day"
-                            />
-                        </Col>
-                        <Col lg={3} sm={6}>
-                            <StatsCard
-                                bigIcon={<i className="pe-7s-graph1 text-danger"></i>}
-                                statsText="Customers"
-                                statsValue="23"
-                                statsIcon={<i className="fa fa-clock-o"></i>}
-                                statsIconText="In the last hour"
-                            />
-                        </Col>
-                        <Col lg={3} sm={6}>
-                            <StatsCard
-                                bigIcon={<i className="fa fa-twitter text-info"></i>}
-                                statsText="Followers"
-                                statsValue="+45"
-                                statsIcon={<i className="fa fa-refresh"></i>}
-                                statsIconText="Updated now"
-                            />
-                        </Col>
-                    </Row>
                     <Row>
                         <Col md={12}>
                             <Card
@@ -204,7 +166,44 @@ class Dashboard extends Component {
                             />
                         </Col>
                     </Row>
-                    
+                    <Row>
+                        <Col lg={3} sm={6}>
+                            <StatsCard
+                                bigIcon={<i className="pe-7s-date text-warning"></i>}
+                                statsText="Today is..."
+                                statsValue={today}
+                                statsIcon={<i className="fa fa-refresh"></i>}
+                                statsIconText="Updated now"
+                            />
+                        </Col>
+                        <Col lg={3} sm={6}>
+                            <StatsCard
+                                bigIcon={<i className="pe-7s-wallet text-success"></i>}
+                                statsText="Revenue"
+                                statsValue="$1,345"
+                                statsIcon={<i className="fa fa-calendar-o"></i>}
+                                statsIconText="Last day"
+                            />
+                        </Col>
+                        <Col lg={3} sm={6}>
+                            <StatsCard
+                                bigIcon={<i className="pe-7s-graph1 text-danger"></i>}
+                                statsText="Customers"
+                                statsValue="23"
+                                statsIcon={<i className="fa fa-clock-o"></i>}
+                                statsIconText="In the last hour"
+                            />
+                        </Col>
+                        <Col lg={3} sm={6}>
+                            <StatsCard
+                                bigIcon={<i className="fa fa-twitter text-info"></i>}
+                                statsText="Followers"
+                                statsValue="+45"
+                                statsIcon={<i className="fa fa-refresh"></i>}
+                                statsIconText="Updated now"
+                            />
+                        </Col>
+                    </Row>
                 </Grid>
             </div>
         );
