@@ -31,22 +31,54 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             startDate: '2018/04/15',
-            endDate: '2018/04/21'
+            endDate: '2018/04/21',
+            database: 'catPred', // start off with categories graph
+            predictor: '',
+            graphData: {
+                labels: daysOfWeek,
+                series: []
+            },
+            legend: {
+                names: []
+            },
+
         };
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.handleEndDateChange = this.handleEndDateChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.updateGraphData = this.updateGraphData.bind(this);
+        this.renderGraphData = this.renderGraphData.bind(this);
+    }
 
+    updateGraphData() {
+        // reset predictor if not applicable
+        if (this.state.database != 'ingPred') {
+            this.state.predictor = '';
+        }
+        var newData = generateDataSet(this.state.startDate, this.state.endDate, this.state.database, this.state.graphData.labels, this.state.predictor)
+        if (newData) {
+            this.state.graphData = newData[0];
+            this.state.legend = newData[1];
+        }
+    }
+
+    renderGraphData() {
+        this.updateGraphData();
+        return this.state.graphData;
     }
 
     handleStartDateChange(event) {
         // TODO: add red warning if date not formatted correctly
         this.setState({startDate: event.target.value});
+        // console.log("startDate:", this.state.startDate);
+        // this.updateGraphData();
     }
 
     handleEndDateChange(event) {
         // TODO: add red warning if date not formatted correctly
         this.setState({endDate: event.target.value});
+        // console.log("endDate:", this.state.endDate);
+        // this.updateGraphData();    
     }
 
     handleSubmit(event) {
@@ -124,7 +156,9 @@ class Dashboard extends Component {
                                 content={
                                     <div className="ct-chart" id="chartHours">
                                         <ChartistGraph
-                                            data={generateDataSet(this.state.startDate, this.state.endDate, 'catPred', daysOfWeek)[0]}
+                                            data={this.renderGraphData()}
+                                            // data={this.state.graphData}
+                                            // data={generateDataSet(this.state.startDate, this.state.endDate, 'catPred', daysOfWeek)[0]}
                                             type="Line"
                                             options={optionsSales}
                                             responsiveOptions={responsiveSales}
@@ -133,7 +167,7 @@ class Dashboard extends Component {
                                 }
                                 legend={
                                     <div className="legend">
-                                        {this.createLegend(generateDataSet(this.state.startDate, this.state.endDate, 'catPred', daysOfWeek)[1])}
+                                        {this.createLegend(this.state.legend)}
                                     </div>
                                 }
                             />

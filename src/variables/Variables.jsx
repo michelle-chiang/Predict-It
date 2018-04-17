@@ -296,21 +296,22 @@ function generateDataSet(startDate, endDate, database, labels, predictor="") {
     };
 
     // catch dates without correct format
-    // TODO: can probs remove this if i prevent 
-    // handleStartDateChange(event) from firing until correct format
     try {
-        sampleDate = d.toISOString();
-        sampleDate = endDate.toISOString();
+        sampleDate = d.toISOString().split('T')[0];
+        var sampleDate1 = endDate.toISOString().split('T')[0];
+        if (!sampleDate || !sampleDate1) {
+            throw "invalid date"
+        }
     } catch(error) {
-        console.error(error);
+        console.error("invalid date");
         return;
     }
 
     // find legend items
     if (predictor) {
-        dateData = db[sampleDate.split('T')[0]][predictor]
+        dateData = db[sampleDate][predictor]
     } else {
-        dateData = db[sampleDate.split('T')[0]]
+        dateData = db[sampleDate]
     }
     predictorNames = Object.keys(dateData)
     legend.names = predictorNames;
