@@ -282,13 +282,13 @@ var daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 var monthsOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 // generate data set pertaining to specified predictors
-function generateDataSet(startDate, endDate, database, labels, predictor="") {
+function generateDataSet(startDate, endDate, database, labels=[], predictor="") {
     var predictorNames, dateData, sampleDate;
     var db = dataSets[database];
     var d = new Date(startDate);
     endDate = new Date(endDate);
     var dataBody = {
-        labels: labels,
+        labels: [],
         series: []
     };
     var legend = {
@@ -320,7 +320,14 @@ function generateDataSet(startDate, endDate, database, labels, predictor="") {
     for (var i = 0; i < predictorNames.length; i++) {
         dataBody["series"].push([]); // initialize containers for each category
     }
+    console.log("dataBody.labels:", dataBody.labels)
 
+    // if no labels specified, label with date
+    if (!labels) {
+        for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
+            dataBody["labels"].push(d.getMonth()+1 +'/'+d.getDate().toString())
+        }
+    }
     // fill in series data
     if (predictor) {
         for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {

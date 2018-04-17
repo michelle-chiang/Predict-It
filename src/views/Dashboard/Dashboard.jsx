@@ -35,7 +35,7 @@ class Dashboard extends Component {
             database: 'catPred', // start off with categories graph
             predictor: '',
             graphData: {
-                labels: daysOfWeek,
+                labels: [],
                 series: []
             },
             legend: {
@@ -55,7 +55,8 @@ class Dashboard extends Component {
         if (this.state.database != 'ingPred') {
             this.state.predictor = '';
         }
-        var newData = generateDataSet(this.state.startDate, this.state.endDate, this.state.database, this.state.graphData.labels, this.state.predictor)
+        // TODO: reset label?
+        var newData = generateDataSet(this.state.startDate, this.state.endDate, this.state.database, this.state.predictor)
         if (newData) {
             this.state.graphData = newData[0];
             this.state.legend = newData[1];
@@ -161,7 +162,7 @@ class Dashboard extends Component {
                                             // data={generateDataSet(this.state.startDate, this.state.endDate, 'catPred', daysOfWeek)[0]}
                                             type="Line"
                                             options={optionsSales}
-                                            responsiveOptions={responsiveSales}
+                                            // responsiveOptions={responsiveSales}
                                         />
                                     </div>
                                 }
