@@ -21,8 +21,8 @@ import {
     // vegetablesNeeded,
 
     generateDataSet,
-    daysOfWeek, 
-    monthsOfYear
+    // daysOfWeek, 
+    // monthsOfYear
 
 } from 'variables/Variables.jsx';
 
@@ -52,7 +52,7 @@ class Dashboard extends Component {
 
     updateGraphData() {
         // reset predictor if not applicable
-        if (this.state.database != 'ingPred') {
+        if (this.state.database !== 'ingPred') {
             this.state.predictor = '';
         }
         // TODO: reset label?
@@ -63,7 +63,7 @@ class Dashboard extends Component {
         }
     }
 
-    renderGraphData() {
+    renderGraphData(graphData) {
         this.updateGraphData();
         return this.state.graphData;
     }
@@ -71,58 +71,59 @@ class Dashboard extends Component {
     handleStartDateChange(event) {
         // TODO: add red warning if date not formatted correctly
         this.setState({startDate: event.target.value});
-        // console.log("startDate:", this.state.startDate);
-        // this.updateGraphData();
     }
 
     handleEndDateChange(event) {
         // TODO: add red warning if date not formatted correctly
-        this.setState({endDate: event.target.value});
-        // console.log("endDate:", this.state.endDate);
-        // this.updateGraphData();    
+        this.setState({endDate: event.target.value});   
     }
 
     handleSubmit(event) {
         // TODO: update data object by using generate dataset function
-        console.log(this.state.startDate, this.state.endDate)
+        // console.log(this.state.startDate, this.state.endDate)
         event.preventDefault();
     }
 
-    // TODO: use state to remember what chart just got drawn
-    createLegend(json, id="") {
-        function changeChartData(dataSeries) {
-            var chart = document.getElementById(id);
-            if (chart) {
-                var parent = chart.parentNode;
-                parent.removeChild(chart);
+    changeChartData(database, predictor="") {
+        this.setState({database: database});
+        if (predictor) {
+            this.setState({predictor: predictor});
+        }
+        this.updateGraphData();
+        console.log("graphData:", this.state.graphData);
+        // var chart = document.getElementById(id);
+        // if (chart) {
+            // var parent = chart.parentNode;
+            // parent.removeChild(chart);
 
-                parent.setAttribute("id","chart-" + dataSeries.name)
-                new Chartist.Line("#chart-" + dataSeries.name, {
-                    labels: dataSeries.labels,
-                    series: dataSeries.series,
-                    options: optionsSales
-                })
-                // // TODO: add footer / legend
-                // <div className="legend">
-                //     {this.createLegend(legendSales, "chartHours")}
-                // </div>
-            }  
-        };
+            // parent.setAttribute("id","chart-" + dataSeries.name)
+            // new Chartist.Line("#chart-" + dataSeries.name, {
+            //     labels: dataSeries.labels,
+            //     series: dataSeries.series,
+            //     options: optionsSales
+            // })
+            // // TODO: add footer / legend
+            // <div className="legend">
+            //     {this.createLegend(legendSales, "chartHours")}
+            // </div>
+        // }
+    };
 
+    createLegend(json, dynamic=false) {
         var graphColor = ["a","b","c","d","e"];
         var legend = [];
         var num_items = json["names"].length;
 
         for(var i = 0; i < num_items; i++){
             var type="fa fa-circle legend-"+graphColor[i];
-            // if (id) {
-            //    legend.push(
-            //         <button key={i} onClick={() => changeChartData(vegetablesNeeded)}>
-            //             <i className={type} ></i>
-            //             <span>{json["names"][i]}</span>
-            //         </button>
-            //     ); 
-            // } else {
+            if (dynamic) {
+               legend.push(
+                    <button key={i} onClick={() => this.changeChartData('ingPred', json["names"][i])}>
+                        <i className={type}></i>
+                        <span>{json["names"][i]}</span>
+                    </button>
+                ); 
+            } else {
                 legend.push(
                     <i className={type} key={i}></i>
                 );
@@ -131,9 +132,10 @@ class Dashboard extends Component {
                     json["names"][i]
                 ); 
             }
-        // } 
+        } 
         return legend;
     }
+
     render() {
         return (
             <div className="content">
@@ -157,7 +159,7 @@ class Dashboard extends Component {
                                 content={
                                     <div className="ct-chart" id="chartHours">
                                         <ChartistGraph
-                                            data={this.renderGraphData()}
+                                            data={this.renderGraphData(this.state.graphData)}
                                             // data={this.state.graphData}
                                             // data={generateDataSet(this.state.startDate, this.state.endDate, 'catPred', daysOfWeek)[0]}
                                             type="Line"
@@ -168,7 +170,7 @@ class Dashboard extends Component {
                                 }
                                 legend={
                                     <div className="legend">
-                                        {this.createLegend(this.state.legend)}
+                                        {this.createLegend(this.state.legend, true)}
                                     </div>
                                 }
                             />

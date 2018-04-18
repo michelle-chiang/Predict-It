@@ -3036,6 +3036,8 @@ body > .navbar-collapse[data-color="purple"]:after {
 a.legend {
   color: black; }
 
+/* for the date inputs - didn't want to make an 
+entirely new file for something so small */
 [placeholder]:focus::-webkit-input-placeholder {
   transition: opacity 1s 1s ease;
   opacity: 0; }

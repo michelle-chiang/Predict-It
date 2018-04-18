@@ -256,6 +256,12 @@ const iconsArray = require('./iconsArray.json');
 // // // For tables
 // //
 //
+var dataSets = {
+    catPred: require('./ingredientCategoriesNeededPred.json'),
+    ingPred: require('./ingredientsNeededPred.json'),
+    itemsSold: require('./menuItemsSoldPast.json')
+}
+// console.log("itemsSold:", dataSets.itemsSold);
 
 const thArray = ["Ingredient","Mon","Tues","Wed","Thu","Fri","Sat","Sun","Total"];
 const tdArray = [
@@ -263,16 +269,81 @@ const tdArray = [
     ["Carrots" ,12 , 12  ,12  ,12 , 12,  10  ,10, 80]
 ];
 
+// generate data set pertaining to specified predictors
+function generateTableSet(startDate, endDate, database, predictor="") {
+    var predictorNames, dateData, sampleDate, header;
+    var db = dataSets[database];
+    var d = new Date(startDate);
+    endDate = new Date(endDate);
+
+    var thArray = [];
+    var tdArray = [];
+
+    // catch dates without correct format
+    try {
+        sampleDate = d.toISOString().split('T')[0];
+        var sampleDate1 = endDate.toISOString().split('T')[0];
+        if (!sampleDate || !sampleDate1) {
+            throw new Error("invalid date");
+        }
+    } catch(error) {
+        console.error(error);
+        return;
+    }
+
+    // find legend items
+    if (predictor) {
+        dateData = db[sampleDate][predictor];
+        header = "Ingredient";
+    } else {
+        dateData = db[sampleDate];
+        header = "Menu Item";
+    }
+    predictorNames = Object.keys(dateData);
+    
+    // fill header with dates
+    thArray.push(header);
+    for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
+        thArray.push(d.getMonth()+1 +'/'+d.getDate().toString())
+    }
+    thArray.push("Total");
+    
+    // fill in series data
+    for (var i = 0; i < predictorNames.length; i++) {
+        tdArray.push([predictorNames[i]]); // initialize containers for each category
+    }
+    if (predictor) {
+        for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
+            for (i = 0; i < predictorNames.length; i++) {
+                tdArray[i].push(db[d.toISOString().split('T')[0]][predictor][predictorNames[i]]) 
+            }
+        }
+    } else {
+        for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
+            for (i = 0; i < predictorNames.length; i++) {
+                tdArray[i].push(db[d.toISOString().split('T')[0]][predictorNames[i]]) 
+            }
+        }
+    }
+
+    // TODO: add in total column
+    function add(a, b) {
+        return a + b;
+    }
+    for (var i = 0; i < predictorNames.length; i++) {
+        var array = tdArray[i].slice(1, tdArray[i].length)
+        tdArray[i].push(array.reduce(add, 0)); // initialize containers for each category
+    }
+
+    return [thArray, tdArray];
+};
+
+
 //
 // //
 // // // // For dashboard's charts
 // //
 //
-var dataSets = {
-    catPred: require('./ingredientCategoriesNeededPred.json'),
-    ingPred: require('./ingredientsNeededPred.json'),
-    itemsSold: require('./menuItemsSoldPast.json')
-}
 var today = new Date();
 today = today.getMonth()+1 +'/'+today.getDate()+'/'+today.getFullYear().toString().substr(-2);;
 
@@ -300,10 +371,10 @@ function generateDataSet(startDate, endDate, database, labels=[], predictor="") 
         sampleDate = d.toISOString().split('T')[0];
         var sampleDate1 = endDate.toISOString().split('T')[0];
         if (!sampleDate || !sampleDate1) {
-            throw "invalid date"
+            throw new Error("invalid date");
         }
     } catch(error) {
-        console.error("invalid date");
+        console.error(error);
         return;
     }
 
@@ -320,7 +391,6 @@ function generateDataSet(startDate, endDate, database, labels=[], predictor="") 
     for (var i = 0; i < predictorNames.length; i++) {
         dataBody["series"].push([]); // initialize containers for each category
     }
-    console.log("dataBody.labels:", dataBody.labels)
 
     // if no labels specified, label with date
     if (!labels) {
@@ -434,8 +504,9 @@ export {
     thArray, tdArray, // For tables (TableList view)
     iconsArray, // For icons (Icons view)
     today, // For stats card
-    daysOfWeek, monthsOfYear, // For graph labels
+    // daysOfWeek, monthsOfYear, // For graph labels
     generateDataSet, // For generating specific data sets
+    generateTableSet, // For generating specific tables
 
     // dataSales, legendSales,
     optionsSales, responsiveSales, 
