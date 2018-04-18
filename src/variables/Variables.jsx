@@ -263,19 +263,12 @@ var dataSets = {
 }
 // console.log("itemsSold:", dataSets.itemsSold);
 
-const thArray = ["Ingredient","Mon","Tues","Wed","Thu","Fri","Sat","Sun","Total"];
-const tdArray = [
-    ["Chickpea", 24 , 24 , 24 , 24 , 24 , 19 , 19, 158],
-    ["Carrots" ,12 , 12  ,12  ,12 , 12,  10  ,10, 80]
-];
-
 // generate data set pertaining to specified predictors
 function generateTableSet(startDate, endDate, database, predictor="") {
     var predictorNames, dateData, sampleDate, header;
     var db = dataSets[database];
     var d = new Date(startDate);
     endDate = new Date(endDate);
-
     var thArray = [];
     var tdArray = [];
 
@@ -326,7 +319,7 @@ function generateTableSet(startDate, endDate, database, predictor="") {
         }
     }
 
-    // TODO: add in total column
+    // calculate totals for each row
     function add(a, b) {
         return a + b;
     }
@@ -348,7 +341,6 @@ var today = new Date();
 today = today.getMonth()+1 +'/'+today.getDate()+'/'+today.getFullYear().toString().substr(-2);;
 
 // labels
-// TODO: generate these dynamically in "generate Data Set"
 var daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 var monthsOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -501,15 +493,13 @@ var legendBar = {
 
 export {
     style, // For notifications (App container and Notifications view)
-    thArray, tdArray, // For tables (TableList view)
     iconsArray, // For icons (Icons view)
     today, // For stats card
+    
     // daysOfWeek, monthsOfYear, // For graph labels
     generateDataSet, // For generating specific data sets
     generateTableSet, // For generating specific tables
 
-    // dataSales, legendSales,
-    optionsSales, responsiveSales, 
-    // vegetablesNeeded,
-    dataBar, optionsBar, responsiveBar, legendBar // For charts (Dashboard view)
+    optionsSales, responsiveSales, // For charts (Dashboard view)
+    dataBar, optionsBar, responsiveBar, legendBar 
 };

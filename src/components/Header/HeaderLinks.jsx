@@ -9,7 +9,7 @@ class HeaderLinks extends Component{
                 <i className="fa fa-globe"></i>
                 <b className="caret"></b>
                 <span className="notification">5</span>
-                <p className="hidden-lg hidden-md">Notification</p>
+                <p className="hidden-lg hidden-md">Notifications</p>
             </div>
         );
         return (

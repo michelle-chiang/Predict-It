@@ -9,21 +9,14 @@ import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
 // import Button from 'elements/CustomButton/CustomButton.jsx';
 
 import {
-    // dataSales,
+    today,
     optionsSales,
     responsiveSales,
-    // legendSales,
     dataBar,
-    today,
+    legendBar,
     optionsBar,
     responsiveBar,
-    legendBar,
-    // vegetablesNeeded,
-
     generateDataSet,
-    // daysOfWeek, 
-    // monthsOfYear
-
 } from 'variables/Variables.jsx';
 
 class Dashboard extends Component {
@@ -41,11 +34,10 @@ class Dashboard extends Component {
             legend: {
                 names: []
             },
-
         };
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.handleEndDateChange = this.handleEndDateChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        // this.handleSubmit = this.handleSubmit.bind(this);
         this.updateGraphData = this.updateGraphData.bind(this);
         this.renderGraphData = this.renderGraphData.bind(this);
     }
@@ -78,11 +70,11 @@ class Dashboard extends Component {
         this.setState({endDate: event.target.value});   
     }
 
-    handleSubmit(event) {
-        // TODO: update data object by using generate dataset function
-        // console.log(this.state.startDate, this.state.endDate)
-        event.preventDefault();
-    }
+    // handleSubmit(event) {
+    //     // TODO: update data object by using generate dataset function
+    //     // console.log(this.state.startDate, this.state.endDate)
+    //     event.preventDefault();
+    // }
 
     changeChartData(database, predictor="") {
         this.setState({database: database});
@@ -139,13 +131,12 @@ class Dashboard extends Component {
     render() {
         return (
             <div className="content">
-                <form onSubmit={this.handleSubmit}>
+                <form>
                     <label> Dates:&nbsp;
                         <input type="text" placeholder="YYYY/MM/DD" value={this.state.startDate} onChange={this.handleStartDateChange}/>
                         &nbsp;-&nbsp;
                         <input type="text" placeholder="YYYY/MM/DD" value={this.state.endDate} onChange={this.handleEndDateChange}/>
                     </label>&nbsp;
-                    <input type="submit" value="Submit"/>
                 </form>
                 <Grid fluid>
                     <Row>
@@ -155,16 +146,12 @@ class Dashboard extends Component {
                                 id="chartHours"
                                 title={"Ingredients Needed: " + this.state.startDate + " - " + this.state.endDate}
                                 category="Past Data and Predicted Future Needs (lb)"
-                                // startDate, endDate, database, labels, predictor=""
                                 content={
                                     <div className="ct-chart" id="chartHours">
                                         <ChartistGraph
                                             data={this.renderGraphData(this.state.graphData)}
-                                            // data={this.state.graphData}
-                                            // data={generateDataSet(this.state.startDate, this.state.endDate, 'catPred', daysOfWeek)[0]}
                                             type="Line"
                                             options={optionsSales}
-                                            // responsiveOptions={responsiveSales}
                                         />
                                     </div>
                                 }

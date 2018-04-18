@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Grid, Row, Col, Table } from 'react-bootstrap';
 
 import Card from 'components/Card/Card.jsx';
-import {thArray, tdArray, generateTableSet} from 'variables/Variables.jsx';
+import {generateTableSet} from 'variables/Variables.jsx';
 
 class TableList extends Component {
     constructor(props) {
@@ -10,32 +10,10 @@ class TableList extends Component {
         this.state = {
             startDate: '2018/04/15',
             endDate: '2018/04/21',
-            // database: 'catPred', // start off with categories graph
-            // predictor: '',
         };
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.handleEndDateChange = this.handleEndDateChange.bind(this);
-        // this.updateGraphData = this.updateGraphData.bind(this);
-        // this.renderGraphData = this.renderGraphData.bind(this);
     }
-
-    // updateGraphData() {
-    //     // reset predictor if not applicable
-    //     if (this.state.database !== 'ingPred') {
-    //         this.state.predictor = '';
-    //     }
-    //     // TODO: reset label?
-    //     var newData = generateDataSet(this.state.startDate, this.state.endDate, this.state.database, this.state.predictor)
-    //     if (newData) {
-    //         this.state.graphData = newData[0];
-    //         this.state.legend = newData[1];
-    //     }
-    // }
-
-    // renderGraphData(graphData) {
-    //     this.updateGraphData();
-    //     return this.state.graphData;
-    // }
 
     handleStartDateChange(event) {
         // TODO: add red warning if date not formatted correctly
@@ -50,13 +28,12 @@ class TableList extends Component {
     render() {
         return (
             <div className="content">
-                <form onSubmit={this.handleSubmit}>
+                <form>
                     <label> Dates:&nbsp;
                         <input type="text" placeholder="YYYY/MM/DD" value={this.state.startDate} onChange={this.handleStartDateChange}/>
                         &nbsp;-&nbsp;
                         <input type="text" placeholder="YYYY/MM/DD" value={this.state.endDate} onChange={this.handleEndDateChange}/>
                     </label>&nbsp;
-                    <input type="submit" value="Submit"/>
                 </form>
                 <Grid fluid>
                 <h1>Ingredient Purchases</h1>
