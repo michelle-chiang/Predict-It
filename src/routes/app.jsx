@@ -9,10 +9,10 @@ import Notifications from 'views/Notifications/Notifications';
 
 const appRoutes = [
     { path: "/dashboard", name: "Dashboard", icon: "pe-7s-graph", component: Dashboard },
-    { path: "/user", name: "Restaurant Profile", icon: "pe-7s-user", component: UserProfile },
     { path: "/table", name: "Table Data", icon: "pe-7s-menu", component: TableList },
     { path: "/tasks", name: "Tasks", icon: "pe-7s-note2", component: Notifications },
-	{ redirect: true, path:"/", to:"/dashboard", name: "Dashboard" }
+	{ redirect: true, path:"/", to:"/dashboard", name: "Dashboard" },
+    { path: "/user", name: "Restaurant Profile", icon: "pe-7s-user", component: UserProfile }
 ];
 
 export default appRoutes;

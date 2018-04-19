@@ -323,7 +323,7 @@ function generateTableSet(startDate, endDate, database, predictor="") {
     function add(a, b) {
         return a + b;
     }
-    for (var i = 0; i < predictorNames.length; i++) {
+    for (i = 0; i < predictorNames.length; i++) {
         var array = tdArray[i].slice(1, tdArray[i].length)
         tdArray[i].push(array.reduce(add, 0)); // initialize containers for each category
     }
@@ -341,11 +341,11 @@ var today = new Date();
 today = today.getMonth()+1 +'/'+today.getDate()+'/'+today.getFullYear().toString().substr(-2);;
 
 // labels
-var daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+// var daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 var monthsOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 // generate data set pertaining to specified predictors
-function generateDataSet(startDate, endDate, database, labels=[], predictor="") {
+function generateDataSet(startDate, endDate, database, predictor="", labels=[]) {
     var predictorNames, dateData, sampleDate;
     var db = dataSets[database];
     var d = new Date(startDate);
@@ -408,12 +408,12 @@ function generateDataSet(startDate, endDate, database, labels=[], predictor="") 
 };
 
 // placeholders for user inputs
-// var today_date = new Date();
-// var startDate = new Date(today_date.setDate(today_date.getDate()));
-// var endDate = new Date(today_date.setDate(today_date.getDate()+6));
+var today_date = new Date();
+var startDate = new Date(today_date.setDate(today_date.getDate()));
+var endDate = new Date(today_date.setDate(today_date.getDate()+6));
 // var testData = generateDataSet(startDate, endDate, 'catPred', daysOfWeek);
-// var testData = generateDataSet(startDate, endDate, 'ingPred', daysOfWeek, 'Vegetables');
-// console.log("testData:", testData);
+var testData = generateDataSet(startDate, endDate, 'ingPred', 'Fruits');
+console.log("testData:", testData);
 
 
 // var vegetablesNeeded = {
@@ -495,7 +495,7 @@ export {
     style, // For notifications (App container and Notifications view)
     iconsArray, // For icons (Icons view)
     today, // For stats card
-    
+
     // daysOfWeek, monthsOfYear, // For graph labels
     generateDataSet, // For generating specific data sets
     generateTableSet, // For generating specific tables

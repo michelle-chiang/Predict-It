@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ChartistGraph from 'react-chartist';
-import Chartist from 'chartist';
+// import Chartist from 'chartist';
 import { Grid, Row, Col } from 'react-bootstrap';
 // import $ from 'jquery';
 
@@ -11,7 +11,7 @@ import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
 import {
     today,
     optionsSales,
-    responsiveSales,
+    // responsiveSales,
     dataBar,
     legendBar,
     optionsBar,
@@ -40,6 +40,8 @@ class Dashboard extends Component {
         // this.handleSubmit = this.handleSubmit.bind(this);
         this.updateGraphData = this.updateGraphData.bind(this);
         this.renderGraphData = this.renderGraphData.bind(this);
+        this.changeChartData = this.changeChartData.bind(this);
+        this.buttonRedirect = this.buttonRedirect.bind(this);
     }
 
     updateGraphData() {
@@ -55,7 +57,7 @@ class Dashboard extends Component {
         }
     }
 
-    renderGraphData(graphData) {
+    renderGraphData() {
         this.updateGraphData();
         return this.state.graphData;
     }
@@ -76,41 +78,35 @@ class Dashboard extends Component {
     //     event.preventDefault();
     // }
 
-    changeChartData(database, predictor="") {
+    changeChartData(database, predictor) {
         this.setState({database: database});
         if (predictor) {
             this.setState({predictor: predictor});
         }
-        this.updateGraphData();
-        console.log("graphData:", this.state.graphData);
-        // var chart = document.getElementById(id);
-        // if (chart) {
-            // var parent = chart.parentNode;
-            // parent.removeChild(chart);
-
-            // parent.setAttribute("id","chart-" + dataSeries.name)
-            // new Chartist.Line("#chart-" + dataSeries.name, {
-            //     labels: dataSeries.labels,
-            //     series: dataSeries.series,
-            //     options: optionsSales
-            // })
-            // // TODO: add footer / legend
-            // <div className="legend">
-            //     {this.createLegend(legendSales, "chartHours")}
-            // </div>
-        // }
     };
 
+    buttonRedirect(event) {
+        var predictor;
+        try {
+            predictor = event.target.getElementsByTagName("span")[0].innerHTML;
+        } catch(error) {
+            predictor = event.target.innerHTML;
+        }
+        this.changeChartData('ingPred', predictor);
+        console.log(predictor);
+    }
+
     createLegend(json, dynamic=false) {
-        var graphColor = ["a","b","c","d","e"];
+        // console.log("starting createLegend")
         var legend = [];
         var num_items = json["names"].length;
+        var name;
 
         for(var i = 0; i < num_items; i++){
-            var type="fa fa-circle legend-"+graphColor[i];
+            var type="fa fa-circle legend-"+String.fromCharCode(97+i);
             if (dynamic) {
-               legend.push(
-                    <button key={i} onClick={() => this.changeChartData('ingPred', json["names"][i])}>
+                legend.push(
+                    <button key={i} onClick={this.buttonRedirect}>
                         <i className={type}></i>
                         <span>{json["names"][i]}</span>
                     </button>
@@ -149,7 +145,7 @@ class Dashboard extends Component {
                                 content={
                                     <div className="ct-chart" id="chartHours">
                                         <ChartistGraph
-                                            data={this.renderGraphData(this.state.graphData)}
+                                            data={this.renderGraphData()}
                                             type="Line"
                                             options={optionsSales}
                                         />
@@ -157,7 +153,7 @@ class Dashboard extends Component {
                                 }
                                 legend={
                                     <div className="legend">
-                                        {this.createLegend(this.state.legend, true)}
+                                        {this.createLegend(this.state.legend, this.state.database === 'catPred')}
                                     </div>
                                 }
                             />
@@ -167,26 +163,26 @@ class Dashboard extends Component {
                     <Row>
                         <Col md={6}>
                             <Card
-                                id="chartActivity"
-                                title="2017 Sales"
-                                category="Sales per month"
-                                // stats="in thousands of dollars"
-                                // statsIcon="fa fa-check"
-                                content={
-                                    <div className="ct-chart">
-                                        <ChartistGraph
-                                            data={dataBar}
-                                            type="Bar"
-                                            options={optionsBar}
-                                            responsiveOptions={responsiveBar}
-                                        />
-                                    </div>
-                                }
-                                legend={
-                                    <div className="legend">
-                                        {this.createLegend(legendBar)}
-                                    </div>
-                                }
+                                // id="chartActivity"
+                                // title="2017 Sales"
+                                // category="Sales per month"
+                                // // stats="in thousands of dollars"
+                                // // statsIcon="fa fa-check"
+                                // content={
+                                //     <div className="ct-chart">
+                                //         <ChartistGraph
+                                //             data={dataBar}
+                                //             type="Bar"
+                                //             options={optionsBar}
+                                //             responsiveOptions={responsiveBar}
+                                //         />
+                                //     </div>
+                                // }
+                                // legend={
+                                //     <div className="legend">
+                                //         {this.createLegend(legendBar)}
+                                //     </div>
+                                // }
                             />
                         </Col>
                     </Row>
