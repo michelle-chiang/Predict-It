@@ -139,11 +139,11 @@ class Dashboard extends Component {
                         <Col md={12}>
                             <Card
                                 // statsIcon="fa fa-history"
-                                id="chartHours"
+                                id="ingredientChart"
                                 title={"Ingredients Needed: " + this.state.startDate + " - " + this.state.endDate}
-                                category="Past Data and Predicted Future Needs (lb)"
+                                category="Past Data and Predicted Future Needs (in lb)"
                                 content={
-                                    <div className="ct-chart" id="chartHours">
+                                    <div className="ct-chart" id="ingredientChart">
                                         <ChartistGraph
                                             data={this.renderGraphData()}
                                             type="Line"
@@ -159,30 +159,55 @@ class Dashboard extends Component {
                             />
                         </Col>
                     </Row>
-
                     <Row>
                         <Col md={6}>
                             <Card
-                                // id="chartActivity"
-                                // title="2017 Sales"
-                                // category="Sales per month"
-                                // // stats="in thousands of dollars"
-                                // // statsIcon="fa fa-check"
-                                // content={
-                                //     <div className="ct-chart">
-                                //         <ChartistGraph
-                                //             data={dataBar}
-                                //             type="Bar"
-                                //             options={optionsBar}
-                                //             responsiveOptions={responsiveBar}
-                                //         />
-                                //     </div>
-                                // }
-                                // legend={
-                                //     <div className="legend">
-                                //         {this.createLegend(legendBar)}
-                                //     </div>
-                                // }
+                                id="chartActivity"
+                                title={"Menu Items Sold: " + this.state.startDate + " - " + this.state.endDate}
+                                category="Past and Predicted Future Needs (in units)"
+                                // stats="in thousands of dollars"
+                                // statsIcon="fa fa-check"
+                                content={
+                                    <div className="ct-chart">
+                                        <ChartistGraph
+                                            data={generateDataSet(this.state.startDate, this.state.endDate, 'itemsSold')[0]}
+                                            type="Line"
+                                            options={optionsSales}
+                                            // responsiveOptions={responsiveBar}
+                                        />
+                                    </div>
+                                }
+                                legend={
+                                    <div className="legend">
+                                        {this.createLegend(generateDataSet(this.state.startDate, this.state.endDate, 'itemsSold')[1])}
+                                    </div>
+                                }
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md={6}>
+                            <Card
+                                id="chartActivity"
+                                title="2017 Sales"
+                                category="Sales per month"
+                                // stats="in thousands of dollars"
+                                // statsIcon="fa fa-check"
+                                content={
+                                    <div className="ct-chart">
+                                        <ChartistGraph
+                                            data={dataBar}
+                                            type="Bar"
+                                            options={optionsBar}
+                                            responsiveOptions={responsiveBar}
+                                        />
+                                    </div>
+                                }
+                                legend={
+                                    <div className="legend">
+                                        {this.createLegend(legendBar)}
+                                    </div>
+                                }
                             />
                         </Col>
                     </Row>

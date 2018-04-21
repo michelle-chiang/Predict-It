@@ -385,7 +385,7 @@ function generateDataSet(startDate, endDate, database, predictor="", labels=[]) 
     }
 
     // if no labels specified, label with date
-    if (!labels) {
+    if (!labels || labels.length === 0) {
         for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
             dataBody["labels"].push(d.getMonth()+1 +'/'+d.getDate().toString())
         }
@@ -408,32 +408,15 @@ function generateDataSet(startDate, endDate, database, predictor="", labels=[]) 
 };
 
 // placeholders for user inputs
-var today_date = new Date();
-var startDate = new Date(today_date.setDate(today_date.getDate()));
-var endDate = new Date(today_date.setDate(today_date.getDate()+6));
+// var today_date = new Date();
+// var startDate = new Date(today_date.setDate(today_date.getDate()));
+// var endDate = new Date(today_date.setDate(today_date.getDate()+6));
 // var testData = generateDataSet(startDate, endDate, 'catPred', daysOfWeek);
-var testData = generateDataSet(startDate, endDate, 'ingPred', 'Fruits');
-console.log("testData:", testData);
+// var testData = generateDataSet(startDate, endDate, 'ingPred', 'Fruits');
+// console.log("testData:", testData);
 
 
-// var vegetablesNeeded = {
-//   labels: daysOfWeek,
-//   series: [],
-//   name: "vegetablesNeeded"
-// };
-// var vegetableNames = Object.keys(ingPred[d.toISOString().split('T')[0]]["Vegetables"])
-// // console.log("vegetableNames:", vegetableNames)
-// for (i = 0; i < vegetableNames.length; i++) {
-//     vegetablesNeeded["series"].push([]) // initialize containers for each category
-// }
-// for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
-//     for (i = 0; i < vegetableNames.length; i++) {
-//         vegetablesNeeded["series"][i].push(ingPred[d.toISOString().split('T')[0]]["Vegetables"][vegetableNames[i]]) 
-//     }
-// }
-// var vegetablesNeededLegend = {
-//     names: vegetableNames
-// };
+
 
 var optionsSales = {
   low: 0,
