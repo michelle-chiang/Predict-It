@@ -15,10 +15,10 @@ export class Tasks extends Component{
         const edit = (<Tooltip id="edit_tooltip">Edit Task</Tooltip>);
         const remove = (<Tooltip id="remove_tooltip">Remove</Tooltip>);
         const tasks_title = [
-            "Don't forget to check that you're not running out of flour" ,
-            "Check with corporate about giving data to the two Harvard kids who came in",
-            "Pay vendors - need to pick up checks at the bank",
-            "Make tomorrow's ingredients' order",
+            "Order 47 pounds of mushrooms." ,
+            "Order 10 pounds of cilantro." ,
+            "Order 49 pounds of cucumber." ,
+            "Order 30 pounds of eggplant." ,
         ];
         var tasks = [];
         var number;

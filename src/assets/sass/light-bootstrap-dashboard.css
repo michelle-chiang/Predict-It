@@ -2519,6 +2519,7 @@ body > .navbar-collapse[data-color="purple"]:after {
 
 .chartist-tooltip:before {
   content: "";
+  position: fixed;
   position: absolute;
   top: 100%;
   left: 50%;
