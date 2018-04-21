@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import ChartistGraph from 'react-chartist';
-// import Chartist from 'chartist';
+import Chartist from 'chartist';
 import { Grid, Row, Col } from 'react-bootstrap';
 // import $ from 'jquery';
 
 import {Card} from 'components/Card/Card.jsx';
 import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
-// import Button from 'elements/CustomButton/CustomButton.jsx';
 
 import {
     today,
+    generateDataSet,
     optionsSales,
-    // responsiveSales,
     dataBar,
     legendBar,
     optionsBar,
     responsiveBar,
-    generateDataSet,
+    dataPie,
+    legendPie
 } from 'variables/Variables.jsx';
 
 class Dashboard extends Component {
@@ -46,10 +46,9 @@ class Dashboard extends Component {
 
     updateGraphData() {
         // reset predictor if not applicable
-        if (this.state.database !== 'ingPred') {
-            this.state.predictor = '';
-        }
-        // TODO: reset label?
+        // if (this.state.database !== 'ingPred') {
+        //     this.state.predictor = '';
+        // }
         var newData = generateDataSet(this.state.startDate, this.state.endDate, this.state.database, this.state.predictor)
         if (newData) {
             this.state.graphData = newData[0];
@@ -93,11 +92,10 @@ class Dashboard extends Component {
             predictor = event.target.innerHTML;
         }
         this.changeChartData('ingPred', predictor);
-        console.log(predictor);
+        // console.log(predictor);
     }
 
     createLegend(json, dynamic=false) {
-        // console.log("starting createLegend")
         var legend = [];
         var num_items = json["names"].length;
         var name;
@@ -138,7 +136,6 @@ class Dashboard extends Component {
                     <Row>
                         <Col md={12}>
                             <Card
-                                // statsIcon="fa fa-history"
                                 id="ingredientChart"
                                 title={"Ingredients Needed: " + this.state.startDate + " - " + this.state.endDate}
                                 category="Past Data and Predicted Future Needs (in lb)"
@@ -160,20 +157,17 @@ class Dashboard extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col md={6}>
+                        <Col md={12}>
                             <Card
                                 id="chartActivity"
                                 title={"Menu Items Sold: " + this.state.startDate + " - " + this.state.endDate}
                                 category="Past and Predicted Future Needs (in units)"
-                                // stats="in thousands of dollars"
-                                // statsIcon="fa fa-check"
                                 content={
                                     <div className="ct-chart">
                                         <ChartistGraph
                                             data={generateDataSet(this.state.startDate, this.state.endDate, 'itemsSold')[0]}
                                             type="Line"
                                             options={optionsSales}
-                                            // responsiveOptions={responsiveBar}
                                         />
                                     </div>
                                 }
@@ -186,13 +180,11 @@ class Dashboard extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col md={6}>
+                        <Col md={8}>
                             <Card
                                 id="chartActivity"
                                 title="2017 Sales"
                                 category="Sales per month"
-                                // stats="in thousands of dollars"
-                                // statsIcon="fa fa-check"
                                 content={
                                     <div className="ct-chart">
                                         <ChartistGraph
@@ -209,6 +201,25 @@ class Dashboard extends Component {
                                     </div>
                                 }
                             />
+                        </Col>
+                        <Col md={4}>
+                            <Card
+                                statsIcon="fa fa-clock-o"
+                                title="Email Statistics"
+                                category="Last Campaign Performance"
+                                stats="Campaign sent 2 days ago"
+                                content={
+                                  <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
+                                    <ChartistGraph 
+                                        data={dataPie} 
+                                        type="Pie" 
+                                    />
+                                  </div>
+                                }
+                                legend={
+                                  <div className="legend">{this.createLegend(legendPie)}</div>
+                                }
+                                />
                         </Col>
                     </Row>
                     <Row>
@@ -256,5 +267,3 @@ class Dashboard extends Component {
 }
 
 export default Dashboard;
-
-// <Button bsStyle="default" block onClick={() => this.props.handleClick('tl')}>Top Left</Button>

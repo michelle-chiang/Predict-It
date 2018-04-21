@@ -1,3 +1,5 @@
+import Chartist from 'chartist';
+import Tooltip from 'chartist-plugin-tooltips';
 //
 // //
 // // // For notifications
@@ -394,13 +396,25 @@ function generateDataSet(startDate, endDate, database, predictor="", labels=[]) 
     if (predictor) {
         for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
             for (i = 0; i < predictorNames.length; i++) {
-                dataBody["series"][i].push(db[d.toISOString().split('T')[0]][predictor][predictorNames[i]]) 
+                var dateTooltip = d.getMonth()+1 +'/'+d.getDate().toString();
+                var date = d.toISOString().split('T')[0];
+                dataBody["series"][i].push({
+                    meta: predictorNames[i],
+                    value: db[date][predictor][predictorNames[i]]
+                });
+                // dataBody["series"][i].push(db[date][predictor][predictorNames[i]]);
             }
         }
     } else {
         for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
             for (i = 0; i < predictorNames.length; i++) {
-                dataBody["series"][i].push(db[d.toISOString().split('T')[0]][predictorNames[i]]) 
+                var dateTooltip = d.getMonth()+1 +'/'+d.getDate().toString();
+                var date = d.toISOString().split('T')[0];
+                dataBody["series"][i].push({
+                    meta: predictorNames[i] + " " + dateTooltip,
+                    value: db[date][predictorNames[i]]
+                });
+                // dataBody["series"][i].push(db[date][predictorNames[i]]);
             }
         }
     }
@@ -414,9 +428,6 @@ function generateDataSet(startDate, endDate, database, predictor="", labels=[]) 
 // var testData = generateDataSet(startDate, endDate, 'catPred', daysOfWeek);
 // var testData = generateDataSet(startDate, endDate, 'ingPred', 'Fruits');
 // console.log("testData:", testData);
-
-
-
 
 var optionsSales = {
   low: 0,
@@ -432,7 +443,13 @@ var optionsSales = {
   chartPadding: {
     right: 50
   },
+  plugins: [
+    Chartist.plugins.tooltip({
+        appendToBody: true
+    })
+  ]
 };
+
 var responsiveSales = [
   ['screen and (max-width: 640px)', {
     axisX: {
@@ -472,6 +489,16 @@ var legendBar = {
     types: ["info","danger"]
 };
 
+// Data for Pie Chart
+var dataPie = {
+  labels: ["40%", "20%", "40%"],
+  series: [40, 20, 40]
+};
+var legendPie = {
+  names: ["Open", "Bounce", "Unsubscribe"],
+  types: ["info", "danger", "warning"]
+};
+
 
 
 export {
@@ -484,5 +511,6 @@ export {
     generateTableSet, // For generating specific tables
 
     optionsSales, responsiveSales, // For charts (Dashboard view)
-    dataBar, optionsBar, responsiveBar, legendBar 
+    dataBar, optionsBar, responsiveBar, legendBar,
+    dataPie, legendPie
 };
