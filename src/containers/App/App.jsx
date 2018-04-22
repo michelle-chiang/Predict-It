@@ -84,7 +84,7 @@ class App extends Component {
             ),
             level: level,
             position: "tr",
-            autoDismiss: 15,
+            autoDismiss: 3,
         });
     }
     componentDidUpdate(e){
