@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ChartistGraph from 'react-chartist';
-import Chartist from 'chartist';
 import { Grid, Row, Col } from 'react-bootstrap';
 // import $ from 'jquery';
 
@@ -27,63 +26,55 @@ class Dashboard extends Component {
             endDate: '2018/04/21',
             database: 'catPred', // start off with categories graph
             predictor: '',
-            graphData: {
-                labels: [],
-                series: []
-            },
-            legend: {
-                names: []
-            },
+            graphData: {labels: [], series: []},
+            legend: {names: []},
+            // seenGraphs: [],
+            currGraphId: 0
         };
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.handleEndDateChange = this.handleEndDateChange.bind(this);
-        // this.handleSubmit = this.handleSubmit.bind(this);
         this.updateGraphData = this.updateGraphData.bind(this);
         this.renderGraphData = this.renderGraphData.bind(this);
         this.changeChartData = this.changeChartData.bind(this);
         this.buttonRedirect = this.buttonRedirect.bind(this);
+        this.createBackButton = this.createBackButton.bind(this);
+        // this.moveToPreviousChart = this.moveToPreviousChart.bind(this);
     }
-
+    handleStartDateChange(event) {
+        this.setState({startDate: event.target.value});
+    }
+    handleEndDateChange(event) {
+        this.setState({endDate: event.target.value});   
+    }
     updateGraphData() {
         // reset predictor if not applicable
-        // if (this.state.database !== 'ingPred') {
-        //     this.state.predictor = '';
-        // }
+        if (this.state.database !== 'ingPred') {
+            this.state.predictor = '';
+        }
+
+        // remember previously seen graphs
+        // this.state.seenGraphs.push({
+        //     graphData: this.state.graphData,
+        //     legend: this.state.legend
+        // })
+
         var newData = generateDataSet(this.state.startDate, this.state.endDate, this.state.database, this.state.predictor)
         if (newData) {
             this.state.graphData = newData[0];
             this.state.legend = newData[1];
+            this.state.currGraphId += 1;
         }
     }
-
     renderGraphData() {
         this.updateGraphData();
         return this.state.graphData;
     }
-
-    handleStartDateChange(event) {
-        // TODO: add red warning if date not formatted correctly
-        this.setState({startDate: event.target.value});
-    }
-
-    handleEndDateChange(event) {
-        // TODO: add red warning if date not formatted correctly
-        this.setState({endDate: event.target.value});   
-    }
-
-    // handleSubmit(event) {
-    //     // TODO: update data object by using generate dataset function
-    //     // console.log(this.state.startDate, this.state.endDate)
-    //     event.preventDefault();
-    // }
-
-    changeChartData(database, predictor) {
+    changeChartData(database, predictor="") {
         this.setState({database: database});
         if (predictor) {
             this.setState({predictor: predictor});
         }
     };
-
     buttonRedirect(event) {
         var predictor;
         try {
@@ -92,23 +83,33 @@ class Dashboard extends Component {
             predictor = event.target.innerHTML;
         }
         this.changeChartData('ingPred', predictor);
-        // console.log(predictor);
     }
+
+    // moveToPreviousChart(event) {
+    //     var i = this.state.currGraphId;
+    //     console.log("i:", i)
+    //     console.log("seenGraphs:", this.state.seenGraphs);
+    //     if (i > 0) {
+    //         var prevGraph = this.state.seenGraphs[i-1];
+    //         console.log("prevGraph:", prevGraph)
+    //         // TODO: change the db somehow, not the graphs
+    //         // this.state.graphData = prevGraph[0];
+    //         // this.state.legend = prevGraph[1]
+    //     }
+    // }
 
     createLegend(json, dynamic=false) {
         var legend = [];
         var num_items = json["names"].length;
-        var name;
-
         for(var i = 0; i < num_items; i++){
             var type="fa fa-circle legend-"+String.fromCharCode(97+i);
             if (dynamic) {
                 legend.push(
-                    <button key={i} onClick={this.buttonRedirect}>
+                    <button key={i} onClick={(event) => this.buttonRedirect(event)}>
                         <i className={type}></i>
                         <span>{json["names"][i]}</span>
                     </button>
-                ); 
+                );
             } else {
                 legend.push(
                     <i className={type} key={i}></i>
@@ -121,11 +122,22 @@ class Dashboard extends Component {
         } 
         return legend;
     }
+    createBackButton() {
+        var backButton = []
+        if (this.state.database === "ingPred") {
+            backButton.push(
+                <button key={this.state.currGraphId} className="back-button" onClick={() => this.changeChartData("catPred", "")}>
+                    <i className="pe-7s-back"></i>
+                </button>
+            );
+            return backButton;
+        }
+    }
 
     render() {
         return (
             <div className="content">
-                <form>
+                <form className="date-picker">
                     <label> Dates:&nbsp;
                         <input type="text" placeholder="YYYY/MM/DD" value={this.state.startDate} onChange={this.handleStartDateChange}/>
                         &nbsp;-&nbsp;
@@ -150,7 +162,8 @@ class Dashboard extends Component {
                                 }
                                 legend={
                                     <div className="legend">
-                                        {this.createLegend(this.state.legend, this.state.database === 'catPred')}
+                                        {this.createLegend(this.state.legend, this.state.database === "catPred")}
+                                        {this.createBackButton()}
                                     </div>
                                 }
                             />

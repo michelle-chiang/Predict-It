@@ -408,8 +408,8 @@ function generateDataSet(startDate, endDate, database, predictor="", labels=[]) 
     } else {
         for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
             for (i = 0; i < predictorNames.length; i++) {
-                var dateTooltip = d.getMonth()+1 +'/'+d.getDate().toString();
-                var date = d.toISOString().split('T')[0];
+                dateTooltip = d.getMonth()+1 +'/'+d.getDate().toString();
+                date = d.toISOString().split('T')[0];
                 dataBody["series"][i].push({
                     meta: predictorNames[i] + " " + dateTooltip,
                     value: db[date][predictorNames[i]]

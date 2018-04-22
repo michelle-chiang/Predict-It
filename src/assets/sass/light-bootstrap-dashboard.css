@@ -3078,3 +3078,6 @@ entirely new file for something so small */
 [placeholder]:focus::-webkit-input-placeholder {
   transition: opacity 1s 1s ease;
   opacity: 0; }
+
+.date-picker {
+  font-size: 25px; }
