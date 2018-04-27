@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ChartistGraph from 'react-chartist';
 import { Grid, Row, Col } from 'react-bootstrap';
-// import $ from 'jquery';
 
 import {Card} from 'components/Card/Card.jsx';
 import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
@@ -28,7 +27,6 @@ class Dashboard extends Component {
             predictor: '',
             graphData: {labels: [], series: []},
             legend: {names: []},
-            // seenGraphs: [],
             currGraphId: 0
         };
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
@@ -38,7 +36,6 @@ class Dashboard extends Component {
         this.changeChartData = this.changeChartData.bind(this);
         this.buttonRedirect = this.buttonRedirect.bind(this);
         this.createBackButton = this.createBackButton.bind(this);
-        // this.moveToPreviousChart = this.moveToPreviousChart.bind(this);
     }
     handleStartDateChange(event) {
         this.setState({startDate: event.target.value});
@@ -51,12 +48,6 @@ class Dashboard extends Component {
         if (this.state.database !== 'ingPred') {
             this.state.predictor = '';
         }
-
-        // remember previously seen graphs
-        // this.state.seenGraphs.push({
-        //     graphData: this.state.graphData,
-        //     legend: this.state.legend
-        // })
 
         var newData = generateDataSet(this.state.startDate, this.state.endDate, this.state.database, this.state.predictor)
         if (newData) {
@@ -84,20 +75,6 @@ class Dashboard extends Component {
         }
         this.changeChartData('ingPred', predictor);
     }
-
-    // moveToPreviousChart(event) {
-    //     var i = this.state.currGraphId;
-    //     console.log("i:", i)
-    //     console.log("seenGraphs:", this.state.seenGraphs);
-    //     if (i > 0) {
-    //         var prevGraph = this.state.seenGraphs[i-1];
-    //         console.log("prevGraph:", prevGraph)
-    //         // TODO: change the db somehow, not the graphs
-    //         // this.state.graphData = prevGraph[0];
-    //         // this.state.legend = prevGraph[1]
-    //     }
-    // }
-
     createLegend(json, dynamic=false) {
         var legend = [];
         var num_items = json["names"].length;

@@ -1,5 +1,6 @@
 import Chartist from 'chartist';
 import Tooltip from 'chartist-plugin-tooltips';
+
 //
 // //
 // // // For notifications
@@ -263,7 +264,6 @@ var dataSets = {
     ingPred: require('./ingredientsNeededPred.json'),
     itemsSold: require('./menuItemsSoldPast.json')
 }
-// console.log("itemsSold:", dataSets.itemsSold);
 
 // generate data set pertaining to specified predictors
 function generateTableSet(startDate, endDate, database, predictor="") {
@@ -343,7 +343,6 @@ var today = new Date();
 today = today.getMonth()+1 +'/'+today.getDate()+'/'+today.getFullYear().toString().substr(-2);;
 
 // labels
-// var daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 var monthsOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 // generate data set pertaining to specified predictors
@@ -402,7 +401,6 @@ function generateDataSet(startDate, endDate, database, predictor="", labels=[]) 
                     meta: predictorNames[i],
                     value: db[date][predictor][predictorNames[i]]
                 });
-                // dataBody["series"][i].push(db[date][predictor][predictorNames[i]]);
             }
         }
     } else {
@@ -414,20 +412,11 @@ function generateDataSet(startDate, endDate, database, predictor="", labels=[]) 
                     meta: predictorNames[i] + " " + dateTooltip,
                     value: db[date][predictorNames[i]]
                 });
-                // dataBody["series"][i].push(db[date][predictorNames[i]]);
             }
         }
     }
     return [dataBody, legend];
 };
-
-// placeholders for user inputs
-// var today_date = new Date();
-// var startDate = new Date(today_date.setDate(today_date.getDate()));
-// var endDate = new Date(today_date.setDate(today_date.getDate()+6));
-// var testData = generateDataSet(startDate, endDate, 'catPred', daysOfWeek);
-// var testData = generateDataSet(startDate, endDate, 'ingPred', 'Fruits');
-// console.log("testData:", testData);
 
 var optionsSales = {
   low: 0,
@@ -506,7 +495,6 @@ export {
     iconsArray, // For icons (Icons view)
     today, // For stats card
 
-    // daysOfWeek, monthsOfYear, // For graph labels
     generateDataSet, // For generating specific data sets
     generateTableSet, // For generating specific tables
 
