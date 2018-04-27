@@ -73,3 +73,9 @@ entirely new file for something so small */
   font-size: 20px;
   margin-bottom: 29px;
 }
+
+.navbar-default .navbar-nav > li > a:not(.btn) [class^="fa"] {
+  color: red;
+  font-size: 30px;
+  margin-right: 10px;
+}

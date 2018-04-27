@@ -341,8 +341,6 @@ function generateTableSet(startDate, endDate, database, predictor="") {
 //
 var today = new Date();
 today = today.getMonth()+1 +'/'+today.getDate()+'/'+today.getFullYear().toString().substr(-2);;
-
-// labels
 var monthsOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 // generate data set pertaining to specified predictors
