@@ -3117,3 +3117,10 @@ entirely new file for something so small */
   color: red;
   font-size: 30px;
   margin-right: 10px; }
+
+.back-button {
+  margin-left: 10px;
+  padding: 2px;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px; }

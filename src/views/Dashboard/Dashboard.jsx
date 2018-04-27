@@ -4,7 +4,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 
 import {Card} from 'components/Card/Card.jsx';
 import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
-
+ 
 import {
     today,
     oneWeekFromToday,

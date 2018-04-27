@@ -413,8 +413,6 @@ function generateDataSet(startDate, endDate, database, predictor="", labels=[]) 
     } catch(error) {
         console.log("invalid date")
     }
-
-    
 };
 
 var optionsSales = {
@@ -492,6 +490,7 @@ var legendPie = {
 // Taken rom https://medium.com/javascript-inside/safely-accessing-deeply-nested-values-in-javascript-99bf72a0855a
 var get = (p, o) =>
   p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : [], o)
+
 
 export {
     style, // For notifications (App container and Notifications view)
