@@ -278,59 +278,57 @@ function generateTableSet(startDate, endDate, database, predictor="") {
     try {
         sampleDate = d.toISOString().split('T')[0];
         var sampleDate1 = endDate.toISOString().split('T')[0];
-        if (!sampleDate || !sampleDate1) {
-            throw new Error("invalid date");
+        sampleDate || sampleDate1;
+
+        // find legend items
+        if (predictor) {
+            dateData = db[sampleDate][predictor];
+            header = "Ingredient";
+        } else {
+            dateData = db[sampleDate];
+            header = "Menu Item";
         }
+
+        predictorNames = Object.keys(dateData);
+
+        // fill header with dates
+        thArray.push(header);
+        for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
+            thArray.push(d.getMonth()+1 +'/'+d.getDate().toString())
+        }
+        thArray.push("Total");
+        
+        // fill in series data
+        for (var i = 0; i < predictorNames.length; i++) {
+            tdArray.push([predictorNames[i]]); // initialize containers for each category
+        }
+        if (predictor) {
+            for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
+                for (i = 0; i < predictorNames.length; i++) {
+                    tdArray[i].push(db[d.toISOString().split('T')[0]][predictor][predictorNames[i]]) 
+                }
+            }
+        } else {
+            for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
+                for (i = 0; i < predictorNames.length; i++) {
+                    tdArray[i].push(db[d.toISOString().split('T')[0]][predictorNames[i]]) 
+                }
+            }
+        }
+        // calculate totals for each row
+        function add(a, b) {
+            return a + b;
+        }
+        for (i = 0; i < predictorNames.length; i++) {
+            var array = tdArray[i].slice(1, tdArray[i].length)
+            tdArray[i].push(array.reduce(add, 0)); // initialize containers for each category
+        }
+
+        return [thArray, tdArray];
+
     } catch(error) {
-        console.error(error);
-        return;
+        console.log("invalid date");
     }
-
-    // find legend items
-    if (predictor) {
-        dateData = db[sampleDate][predictor];
-        header = "Ingredient";
-    } else {
-        dateData = db[sampleDate];
-        header = "Menu Item";
-    }
-    predictorNames = Object.keys(dateData);
-    
-    // fill header with dates
-    thArray.push(header);
-    for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
-        thArray.push(d.getMonth()+1 +'/'+d.getDate().toString())
-    }
-    thArray.push("Total");
-    
-    // fill in series data
-    for (var i = 0; i < predictorNames.length; i++) {
-        tdArray.push([predictorNames[i]]); // initialize containers for each category
-    }
-    if (predictor) {
-        for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
-            for (i = 0; i < predictorNames.length; i++) {
-                tdArray[i].push(db[d.toISOString().split('T')[0]][predictor][predictorNames[i]]) 
-            }
-        }
-    } else {
-        for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
-            for (i = 0; i < predictorNames.length; i++) {
-                tdArray[i].push(db[d.toISOString().split('T')[0]][predictorNames[i]]) 
-            }
-        }
-    }
-
-    // calculate totals for each row
-    function add(a, b) {
-        return a + b;
-    }
-    for (i = 0; i < predictorNames.length; i++) {
-        var array = tdArray[i].slice(1, tdArray[i].length)
-        tdArray[i].push(array.reduce(add, 0)); // initialize containers for each category
-    }
-
-    return [thArray, tdArray];
 };
 
 
@@ -340,7 +338,10 @@ function generateTableSet(startDate, endDate, database, predictor="") {
 // //
 //
 var today = new Date();
-today = today.getMonth()+1 +'/'+today.getDate()+'/'+today.getFullYear().toString().substr(-2);;
+today = today.getMonth()+1 +'/'+today.getDate()+'/'+today.getFullYear().toString().substr(-2);
+var oneWeekFromToday = new Date(today);
+oneWeekFromToday.setDate(oneWeekFromToday.getDate()+7);
+oneWeekFromToday = oneWeekFromToday.getMonth()+1 +'/'+oneWeekFromToday.getDate()+'/'+oneWeekFromToday.getFullYear().toString().substr(-2);
 var monthsOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 // generate data set pertaining to specified predictors
@@ -361,59 +362,59 @@ function generateDataSet(startDate, endDate, database, predictor="", labels=[]) 
     try {
         sampleDate = d.toISOString().split('T')[0];
         var sampleDate1 = endDate.toISOString().split('T')[0];
-        if (!sampleDate || !sampleDate1) {
-            throw new Error("invalid date");
+        sampleDate || sampleDate1;
+
+        // find legend items
+        if (predictor) {
+            dateData = db[sampleDate][predictor]
+        } else {
+            dateData = db[sampleDate]
         }
+        predictorNames = Object.keys(dateData);
+        legend.names = predictorNames;
+
+        // initialize series containers
+        for (var i = 0; i < predictorNames.length; i++) {
+            dataBody["series"].push([]); // initialize containers for each category
+        }
+
+        // if no labels specified, label with date
+        if (!labels || labels.length === 0) {
+            for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
+                dataBody["labels"].push(d.getMonth()+1 +'/'+d.getDate().toString())
+            }
+        }
+        // fill in series data
+        if (predictor) {
+            for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
+                for (i = 0; i < predictorNames.length; i++) {
+                    var dateTooltip = d.getMonth()+1 +'/'+d.getDate().toString();
+                    var date = d.toISOString().split('T')[0];
+                    dataBody["series"][i].push({
+                        meta: predictorNames[i],
+                        value: db[date][predictor][predictorNames[i]]
+                    });
+                }
+            }
+        } else {
+            for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
+                for (i = 0; i < predictorNames.length; i++) {
+                    dateTooltip = d.getMonth()+1 +'/'+d.getDate().toString();
+                    date = d.toISOString().split('T')[0];
+                    dataBody["series"][i].push({
+                        meta: predictorNames[i] + " " + dateTooltip,
+                        value: db[date][predictorNames[i]]
+                    });
+                }
+            }
+        }
+        return [dataBody, legend];
+
     } catch(error) {
-        console.error(error);
-        return;
+        console.log("invalid date")
     }
 
-    // find legend items
-    if (predictor) {
-        dateData = db[sampleDate][predictor]
-    } else {
-        dateData = db[sampleDate]
-    }
-    predictorNames = Object.keys(dateData)
-    legend.names = predictorNames;
-
-    // initialize series containers
-    for (var i = 0; i < predictorNames.length; i++) {
-        dataBody["series"].push([]); // initialize containers for each category
-    }
-
-    // if no labels specified, label with date
-    if (!labels || labels.length === 0) {
-        for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
-            dataBody["labels"].push(d.getMonth()+1 +'/'+d.getDate().toString())
-        }
-    }
-    // fill in series data
-    if (predictor) {
-        for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
-            for (i = 0; i < predictorNames.length; i++) {
-                var dateTooltip = d.getMonth()+1 +'/'+d.getDate().toString();
-                var date = d.toISOString().split('T')[0];
-                dataBody["series"][i].push({
-                    meta: predictorNames[i],
-                    value: db[date][predictor][predictorNames[i]]
-                });
-            }
-        }
-    } else {
-        for (d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)) {
-            for (i = 0; i < predictorNames.length; i++) {
-                dateTooltip = d.getMonth()+1 +'/'+d.getDate().toString();
-                date = d.toISOString().split('T')[0];
-                dataBody["series"][i].push({
-                    meta: predictorNames[i] + " " + dateTooltip,
-                    value: db[date][predictorNames[i]]
-                });
-            }
-        }
-    }
-    return [dataBody, legend];
+    
 };
 
 var optionsSales = {
@@ -487,11 +488,16 @@ var legendPie = {
 };
 
 
+// Internal function to safely get objects
+// Taken rom https://medium.com/javascript-inside/safely-accessing-deeply-nested-values-in-javascript-99bf72a0855a
+var get = (p, o) =>
+  p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : [], o)
 
 export {
     style, // For notifications (App container and Notifications view)
     iconsArray, // For icons (Icons view)
-    today, // For stats card
+    today, oneWeekFromToday, // Nicely formatted dates
+    get, // To safely check if data exists
 
     generateDataSet, // For generating specific data sets
     generateTableSet, // For generating specific tables

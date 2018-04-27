@@ -2,14 +2,19 @@ import React, { Component } from 'react';
 import { Grid, Row, Col, Table } from 'react-bootstrap';
 
 import Card from 'components/Card/Card.jsx';
-import {generateTableSet} from 'variables/Variables.jsx';
+import {
+    today,
+    oneWeekFromToday,
+    get,
+    generateTableSet
+} from 'variables/Variables.jsx';
 
 class TableList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            startDate: '2018/04/15',
-            endDate: '2018/04/21',
+            startDate: today,
+            endDate: oneWeekFromToday,
         };
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.handleEndDateChange = this.handleEndDateChange.bind(this);
@@ -26,13 +31,6 @@ class TableList extends Component {
     render() {
         return (
             <div className="content">
-                <form>
-                    <label> Dates:&nbsp;
-                        <input type="text" placeholder="YYYY/MM/DD" value={this.state.startDate} onChange={this.handleStartDateChange}/>
-                        &nbsp;-&nbsp;
-                        <input type="text" placeholder="YYYY/MM/DD" value={this.state.endDate} onChange={this.handleEndDateChange}/>
-                    </label>&nbsp;
-                </form>
                 <Grid fluid>
                 <h1>Ingredient Purchases</h1>
                     <Row>
@@ -41,9 +39,9 @@ class TableList extends Component {
                             <p>(If you pick a date after today, we're showing you our predictions for how much you'll need.)</p>
                             <form className="date-picker">
                                 <label> Dates:&nbsp;
-                                    <input type="text" placeholder="YYYY/MM/DD" value={this.state.startDate} onChange={this.handleStartDateChange}/>
+                                    <input type="text" placeholder="MM/DD/YY" value={this.state.startDate} onChange={this.handleStartDateChange}/>
                                     &nbsp;-&nbsp;
-                                    <input type="text" placeholder="YYYY/MM/DD" value={this.state.endDate} onChange={this.handleEndDateChange}/>
+                                    <input type="text" placeholder="MM/DD/YY" value={this.state.endDate} onChange={this.handleEndDateChange}/>
                                 </label>&nbsp;
                             </form>
                             <Card
@@ -55,9 +53,9 @@ class TableList extends Component {
                                         <thead>
                                             <tr>
                                                 {
-                                                    generateTableSet(this.state.startDate, this.state.endDate, 'ingPred', 'Vegetables')[0].map((prop, key) => {
+                                                    get([0], generateTableSet(this.state.startDate, this.state.endDate, 'ingPred', 'Vegetables')).map((prop, key) => {
                                                         return (
-                                                        <th  key={key}>{prop}</th>
+                                                            <th  key={key}>{prop}</th>
                                                         );
                                                     })
                                                 }
@@ -65,7 +63,7 @@ class TableList extends Component {
                                         </thead>
                                         <tbody>
                                             {
-                                                generateTableSet(this.state.startDate, this.state.endDate, 'ingPred', 'Vegetables')[1].map((prop,key) => {
+                                                get([1], generateTableSet(this.state.startDate, this.state.endDate, 'ingPred', 'Vegetables')).map((prop,key) => {
                                                     return (
                                                         <tr key={key}>{
                                                             prop.map((prop,key)=> {
@@ -96,9 +94,9 @@ class TableList extends Component {
                                         <thead>
                                             <tr>
                                                 {
-                                                    generateTableSet(this.state.startDate, this.state.endDate, 'ingPred', 'Fruits')[0].map((prop, key) => {
+                                                    get([0], generateTableSet(this.state.startDate, this.state.endDate, 'ingPred', 'Fruits')).map((prop, key) => {
                                                         return (
-                                                        <th  key={key}>{prop}</th>
+                                                            <th  key={key}>{prop}</th>
                                                         );
                                                     })
                                                 }
@@ -106,7 +104,7 @@ class TableList extends Component {
                                         </thead>
                                         <tbody>
                                             {
-                                                generateTableSet(this.state.startDate, this.state.endDate, 'ingPred', 'Fruits')[1].map((prop,key) => {
+                                                get([1], generateTableSet(this.state.startDate, this.state.endDate, 'ingPred', 'Fruits')).map((prop,key) => {
                                                     return (
                                                         <tr key={key}>{
                                                             prop.map((prop,key)=> {
@@ -137,9 +135,9 @@ class TableList extends Component {
                                         <thead>
                                             <tr>
                                                 {
-                                                    generateTableSet(this.state.startDate, this.state.endDate, 'ingPred', 'Proteins')[0].map((prop, key) => {
+                                                    get([0], generateTableSet(this.state.startDate, this.state.endDate, 'ingPred', 'Proteins')).map((prop, key) => {
                                                         return (
-                                                        <th  key={key}>{prop}</th>
+                                                            <th  key={key}>{prop}</th>
                                                         );
                                                     })
                                                 }
@@ -147,7 +145,7 @@ class TableList extends Component {
                                         </thead>
                                         <tbody>
                                             {
-                                                generateTableSet(this.state.startDate, this.state.endDate, 'ingPred', 'Proteins')[1].map((prop,key) => {
+                                                get([1], generateTableSet(this.state.startDate, this.state.endDate, 'ingPred', 'Proteins')).map((prop,key) => {
                                                     return (
                                                         <tr key={key}>{
                                                             prop.map((prop,key)=> {
@@ -178,9 +176,9 @@ class TableList extends Component {
                                         <thead>
                                             <tr>
                                                 {
-                                                    generateTableSet(this.state.startDate, this.state.endDate, 'ingPred', 'Beverages')[0].map((prop, key) => {
+                                                    get([0], generateTableSet(this.state.startDate, this.state.endDate, 'ingPred', 'Beverages')).map((prop, key) => {
                                                         return (
-                                                        <th  key={key}>{prop}</th>
+                                                            <th  key={key}>{prop}</th>
                                                         );
                                                     })
                                                 }
@@ -188,7 +186,7 @@ class TableList extends Component {
                                         </thead>
                                         <tbody>
                                             {
-                                                generateTableSet(this.state.startDate, this.state.endDate, 'ingPred', 'Beverages')[1].map((prop,key) => {
+                                                get([1], generateTableSet(this.state.startDate, this.state.endDate, 'ingPred', 'Beverages')).map((prop,key) => {
                                                     return (
                                                         <tr key={key}>{
                                                             prop.map((prop,key)=> {
@@ -219,9 +217,9 @@ class TableList extends Component {
                                         <thead>
                                             <tr>
                                                 {
-                                                    generateTableSet(this.state.startDate, this.state.endDate, 'ingPred', 'Other')[0].map((prop, key) => {
+                                                    get([0], generateTableSet(this.state.startDate, this.state.endDate, 'ingPred', 'Other')).map((prop, key) => {
                                                         return (
-                                                        <th  key={key}>{prop}</th>
+                                                            <th  key={key}>{prop}</th>
                                                         );
                                                     })
                                                 }
@@ -229,7 +227,7 @@ class TableList extends Component {
                                         </thead>
                                         <tbody>
                                             {
-                                                generateTableSet(this.state.startDate, this.state.endDate, 'ingPred', 'Other')[1].map((prop,key) => {
+                                                get([1], generateTableSet(this.state.startDate, this.state.endDate, 'ingPred', 'Other')).map((prop,key) => {
                                                     return (
                                                         <tr key={key}>{
                                                             prop.map((prop,key)=> {
@@ -265,9 +263,9 @@ class TableList extends Component {
                                         <thead>
                                             <tr>
                                                 {
-                                                    generateTableSet(this.state.startDate, this.state.endDate, 'itemsSold')[0].map((prop, key) => {
+                                                    get([0], generateTableSet(this.state.startDate, this.state.endDate, 'itemsSold')).map((prop, key) => {
                                                         return (
-                                                        <th  key={key}>{prop}</th>
+                                                            <th  key={key}>{prop}</th>
                                                         );
                                                     })
                                                 }
@@ -275,7 +273,7 @@ class TableList extends Component {
                                         </thead>
                                         <tbody>
                                             {
-                                                generateTableSet(this.state.startDate, this.state.endDate, 'itemsSold')[1].map((prop,key) => {
+                                                get([1], generateTableSet(this.state.startDate, this.state.endDate, 'itemsSold')).map((prop,key) => {
                                                     return (
                                                         <tr key={key}>{
                                                             prop.map((prop,key)=> {
@@ -285,7 +283,7 @@ class TableList extends Component {
                                                                     );
                                                                 } else {
                                                                     return (
-                                                                        <td  key={key}>{prop}</td>
+                                                                        <td  key={key}>{prop} lb</td>
                                                                     );
                                                                 }
                                                             })

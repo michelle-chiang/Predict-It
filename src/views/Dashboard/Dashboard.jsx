@@ -7,6 +7,8 @@ import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
 
 import {
     today,
+    oneWeekFromToday,
+    get,
     generateDataSet,
     optionsSales,
     dataBar,
@@ -21,8 +23,8 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            startDate: '2018/04/15',
-            endDate: '2018/04/21',
+            startDate: today,
+            endDate: oneWeekFromToday,
             database: 'catPred', // start off with categories graph
             predictor: '',
             graphData: {labels: [], series: []},
@@ -76,28 +78,32 @@ class Dashboard extends Component {
         this.changeChartData('ingPred', predictor);
     }
     createLegend(json, dynamic=false) {
-        var legend = [];
-        var num_items = json["names"].length;
-        for(var i = 0; i < num_items; i++){
-            var type="fa fa-circle legend-"+String.fromCharCode(97+i);
-            if (dynamic) {
-                legend.push(
-                    <button key={i} onClick={(event) => this.buttonRedirect(event)}>
-                        <i className={type}></i>
-                        <span>{json["names"][i]}</span>
-                    </button>
-                );
-            } else {
-                legend.push(
-                    <i className={type} key={i}></i>
-                );
-                legend.push(" ");
-                legend.push(
-                    json["names"][i]
-                ); 
-            }
-        } 
-        return legend;
+        try {
+           var legend = [];
+            var num_items = json["names"].length;
+            for(var i = 0; i < num_items; i++){
+                var type="fa fa-circle legend-"+String.fromCharCode(97+i);
+                if (dynamic) {
+                    legend.push(
+                        <button key={i} onClick={(event) => this.buttonRedirect(event)}>
+                            <i className={type}></i>
+                            <span>{json["names"][i]}</span>
+                        </button>
+                    );
+                } else {
+                    legend.push(
+                        <i className={type} key={i}></i>
+                    );
+                    legend.push(" ");
+                    legend.push(
+                        json["names"][i]
+                    ); 
+                }
+            } 
+            return legend; 
+        } catch(error) {
+            return [];
+        }  
     }
     createBackButton() {
         var backButton = []
@@ -159,9 +165,9 @@ class Dashboard extends Component {
                             <p>(If you pick a date after today, we're showing you our predictions for how much you'll need.)</p>
                          <form className="date-picker">
                                 <label> Dates:&nbsp;
-                                    <input type="text" placeholder="YYYY/MM/DD" value={this.state.startDate} onChange={this.handleStartDateChange}/>
+                                    <input type="text" placeholder="MM/DD/YY" value={this.state.startDate} onChange={this.handleStartDateChange}/>
                                     &nbsp;-&nbsp;
-                                    <input type="text" placeholder="YYYY/MM/DD" value={this.state.endDate} onChange={this.handleEndDateChange}/>
+                                    <input type="text" placeholder="MM/DD/YY" value={this.state.endDate} onChange={this.handleEndDateChange}/>
                                 </label>&nbsp;
                             </form>
                             <Card
@@ -195,7 +201,7 @@ class Dashboard extends Component {
                                 content={
                                     <div className="ct-chart">
                                         <ChartistGraph
-                                            data={generateDataSet(this.state.startDate, this.state.endDate, 'itemsSold')[0]}
+                                            data={get([0], generateDataSet(this.state.startDate, this.state.endDate, 'itemsSold'))}
                                             type="Line"
                                             options={optionsSales}
                                         />
@@ -203,7 +209,7 @@ class Dashboard extends Component {
                                 }
                                 legend={
                                     <div className="legend">
-                                        {this.createLegend(generateDataSet(this.state.startDate, this.state.endDate, 'itemsSold')[1])}
+                                        {this.createLegend(get([1], generateDataSet(this.state.startDate, this.state.endDate, 'itemsSold')))}
                                     </div>
                                 }
                             />
