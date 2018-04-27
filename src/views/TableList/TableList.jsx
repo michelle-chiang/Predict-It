@@ -16,12 +16,10 @@ class TableList extends Component {
     }
 
     handleStartDateChange(event) {
-        // TODO: add red warning if date not formatted correctly
         this.setState({startDate: event.target.value});
     }
 
     handleEndDateChange(event) {
-        // TODO: add red warning if date not formatted correctly
         this.setState({endDate: event.target.value});   
     }
 
@@ -37,9 +35,17 @@ class TableList extends Component {
                 </form>
                 <Grid fluid>
                 <h1>Ingredient Purchases</h1>
-                <h3>(If you pick a date after today, we're showing you our predictions for how much you'll need.)</h3>
                     <Row>
                         <Col md={12}>
+                            <h3>Pick the date range you want to see data for.</h3>
+                            <p>(If you pick a date after today, we're showing you our predictions for how much you'll need.)</p>
+                            <form className="date-picker">
+                                <label> Dates:&nbsp;
+                                    <input type="text" placeholder="YYYY/MM/DD" value={this.state.startDate} onChange={this.handleStartDateChange}/>
+                                    &nbsp;-&nbsp;
+                                    <input type="text" placeholder="YYYY/MM/DD" value={this.state.endDate} onChange={this.handleEndDateChange}/>
+                                </label>&nbsp;
+                            </form>
                             <Card
                                 plain
                                 title="Vegetables"

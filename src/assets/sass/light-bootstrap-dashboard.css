@@ -3110,4 +3110,5 @@ entirely new file for something so small */
   opacity: 0; }
 
 .date-picker {
-  font-size: 25px; }
+  font-size: 20px;
+  margin-bottom: 29px; }

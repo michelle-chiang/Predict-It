@@ -114,16 +114,56 @@ class Dashboard extends Component {
     render() {
         return (
             <div className="content">
-                <form className="date-picker">
-                    <label> Dates:&nbsp;
-                        <input type="text" placeholder="YYYY/MM/DD" value={this.state.startDate} onChange={this.handleStartDateChange}/>
-                        &nbsp;-&nbsp;
-                        <input type="text" placeholder="YYYY/MM/DD" value={this.state.endDate} onChange={this.handleEndDateChange}/>
-                    </label>&nbsp;
-                </form>
                 <Grid fluid>
                     <Row>
+                        <Col lg={3} sm={6}>
+                            <StatsCard
+                                bigIcon={<i className="pe-7s-date text-warning"></i>}
+                                statsText="Today is..."
+                                statsValue={today}
+                                statsIcon={<i className="fa fa-refresh"></i>}
+                                statsIconText="Updated now"
+                            />
+                        </Col>
+                        <Col lg={3} sm={6}>
+                            <StatsCard
+                                bigIcon={<i className="pe-7s-wallet text-success"></i>}
+                                statsText="Revenue"
+                                statsValue="$1,345"
+                                statsIcon={<i className="fa fa-calendar-o"></i>}
+                                statsIconText="Last day"
+                            />
+                        </Col>
+                        <Col lg={3} sm={6}>
+                            <StatsCard
+                                bigIcon={<i className="pe-7s-graph1 text-danger"></i>}
+                                statsText="Customers"
+                                statsValue="23"
+                                statsIcon={<i className="fa fa-clock-o"></i>}
+                                statsIconText="In the last hour"
+                            />
+                        </Col>
+                        <Col lg={3} sm={6}>
+                            <StatsCard
+                                bigIcon={<i className="fa fa-twitter text-info"></i>}
+                                statsText="Followers"
+                                statsValue="+45"
+                                statsIcon={<i className="fa fa-refresh"></i>}
+                                statsIconText="Updated now"
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
                         <Col md={12}>
+                            <h3>Pick the date range you want to see data for.</h3>
+                            <p>(If you pick a date after today, we're showing you our predictions for how much you'll need.)</p>
+                         <form className="date-picker">
+                                <label> Dates:&nbsp;
+                                    <input type="text" placeholder="YYYY/MM/DD" value={this.state.startDate} onChange={this.handleStartDateChange}/>
+                                    &nbsp;-&nbsp;
+                                    <input type="text" placeholder="YYYY/MM/DD" value={this.state.endDate} onChange={this.handleEndDateChange}/>
+                                </label>&nbsp;
+                            </form>
                             <Card
                                 id="ingredientChart"
                                 title={"Ingredients Needed: " + this.state.startDate + " - " + this.state.endDate}
@@ -210,44 +250,6 @@ class Dashboard extends Component {
                                   <div className="legend">{this.createLegend(legendPie)}</div>
                                 }
                                 />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col lg={3} sm={6}>
-                            <StatsCard
-                                bigIcon={<i className="pe-7s-date text-warning"></i>}
-                                statsText="Today is..."
-                                statsValue={today}
-                                statsIcon={<i className="fa fa-refresh"></i>}
-                                statsIconText="Updated now"
-                            />
-                        </Col>
-                        <Col lg={3} sm={6}>
-                            <StatsCard
-                                bigIcon={<i className="pe-7s-wallet text-success"></i>}
-                                statsText="Revenue"
-                                statsValue="$1,345"
-                                statsIcon={<i className="fa fa-calendar-o"></i>}
-                                statsIconText="Last day"
-                            />
-                        </Col>
-                        <Col lg={3} sm={6}>
-                            <StatsCard
-                                bigIcon={<i className="pe-7s-graph1 text-danger"></i>}
-                                statsText="Customers"
-                                statsValue="23"
-                                statsIcon={<i className="fa fa-clock-o"></i>}
-                                statsIconText="In the last hour"
-                            />
-                        </Col>
-                        <Col lg={3} sm={6}>
-                            <StatsCard
-                                bigIcon={<i className="fa fa-twitter text-info"></i>}
-                                statsText="Followers"
-                                statsValue="+45"
-                                statsIcon={<i className="fa fa-refresh"></i>}
-                                statsIconText="Updated now"
-                            />
                         </Col>
                     </Row>
                 </Grid>
